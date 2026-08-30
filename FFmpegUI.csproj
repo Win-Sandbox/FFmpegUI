@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<!-- 目标平台版本：本机的 Windows SDK 契约（Include/Lib）为 10.0.22621，
+		     Windows SDK 构建工具使用你指定的 10.0.26100.4654（见下方 PackageReference）。
+		     最低支持 10.0.17763（Windows 10 1809，WinAppSDK 官方支持的最低版本）。 -->
+		<TargetFramework>net8.0-windows10.0.22621.0</TargetFramework>
+		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+		<RootNamespace>FFmpegUI</RootNamespace>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<Platforms>x64</Platforms>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+		<UseWinUI>true</UseWinUI>
+		<!-- 未打包（unpackaged）部署：不生成 MSIX 包，输出到 bin 目录 -->
+		<WindowsPackageType>None</WindowsPackageType>
+		<!-- 未打包应用必须自包含 WinAppSDK 运行时（Learn《Windows 应用 SDK 部署概述》） -->
+		<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+		<SelfContained>true</SelfContained>
+		<PublishSelfContained>true</PublishSelfContained>
+		<EnableMsixTooling>true</EnableMsixTooling>
+		<!-- 中性（默认）资源语言 = zh-CN：当前版本仅提供简体中文，
+		     缺失资源回退到中文（WinAppSDK MrtCore 官方属性） -->
+		<DefaultLanguage>zh-CN</DefaultLanguage>
+		<!-- 未打包应用 PRI 默认名为 $(TargetName).pri，而 WinAppSDK 运行时
+		     固定查找 resources.pri（自包含模式下框架已为该名让位），
+		     必须显式指定，否则启动即抛 InvalidOperationException（0xC000027B 崩溃） -->
+		<ProjectPriFileName>resources.pri</ProjectPriFileName>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<LangVersion>latest</LangVersion>
+		<AssemblyName>FFmpegUI</AssemblyName>
+		<ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="2.0.1" />
+		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.4654" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- 应用清单：必须随输出复制（未打包应用的进程清单） -->
+		<None Update="app.manifest">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+</Project>
