@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="FFmpegUI.Views.PlayPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:FFmpegUI.Controls"
+    mc:Ignorable="d"
+    NavigationCacheMode="Enabled">
+
+    <!-- 布局说明：播放器区域固定在顶部、不随滚动移动。
+         原因：内嵌的画面是原生 HWND 子窗口，不参与 XAML 布局，
+         页面滚动时不会自动跟随；放在固定区域可避免画面与占位框错位。 -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ============ 播放器（固定区域） ============ -->
+        <Border Grid.Row="0"
+                Style="{StaticResource CardStyle}"
+                Margin="32,24,32,8">
+
+            <StackPanel Spacing="12">
+
+                <!-- 画面宿主：ffplay 窗口将嵌入到此矩形区域 -->
+                <Grid>
+                    <Border x:Name="VideoHost"
+                            MinHeight="240"
+                            CornerRadius="6"
+                            Background="Black"/>
+
+                    <!-- 未播放时的占位提示（播放时隐藏，避免与画面重叠） -->
+                    <StackPanel Visibility="{x:Bind ViewModel.IsPlaying, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Spacing="12">
+                        <FontIcon Glyph="&#xE714;"
+                                  FontSize="48"
+                                  Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                                  HorizontalAlignment="Center"/>
+                        <TextBlock Text="选择文件后开始播放"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="{x:Bind ViewModel.DisplayName, Mode=OneWay}"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                                   HorizontalAlignment="Center"
+                                   MaxWidth="560"
+                                   TextTrimming="CharacterEllipsis"/>
+                    </StackPanel>
+                </Grid>
+
+                <!-- 控制栏第一行：文件与播放控制 -->
+                <StackPanel Orientation="Horizontal" Spacing="8">
+
+                    <Button Style="{StaticResource IconButtonStyle}"
+                            AutomationProperties.Name="打开文件"
+                            ToolTipService.ToolTip="选择要播放的媒体文件"
+                            Command="{x:Bind ViewModel.PickInputCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE8E5;" FontSize="16"/>
+                            <TextBlock Text="打开文件"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource AccentIconButtonStyle}"
+                            AutomationProperties.Name="播放"
+                            ToolTipService.ToolTip="开始播放；播放中调整画面参数会自动重新播放"
+                            Command="{x:Bind ViewModel.PlayCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE768;" FontSize="16"/>
+                            <TextBlock Text="{x:Bind ViewModel.IsPlaying, Mode=OneWay, Converter={StaticResource BoolToPlayTextConverter}}"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource IconButtonStyle}"
+                            AutomationProperties.Name="暂停"
+                            ToolTipService.ToolTip="暂停 / 继续"
+                            Command="{x:Bind ViewModel.PauseCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="{x:Bind ViewModel.PauseButtonGlyph, Mode=OneWay}" FontSize="16"/>
+                            <TextBlock Text="{x:Bind ViewModel.PauseButtonText, Mode=OneWay}"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource IconButtonStyle}"
+                            AutomationProperties.Name="停止"
+                            ToolTipService.ToolTip="停止播放"
+                            Command="{x:Bind ViewModel.StopCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE71A;" FontSize="16"/>
+                            <TextBlock Text="停止"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <!-- 控制栏第二行：快进快退、速度、音量 -->
+                <Grid ColumnSpacing="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- 快进快退 -->
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="4">
+                        <Button Style="{StaticResource IconButtonStyle}"
+                                AutomationProperties.Name="后退 10 秒"
+                                ToolTipService.ToolTip="后退 10 秒"
+                                Command="{x:Bind ViewModel.SeekBackwardCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <FontIcon Glyph="&#xE892;" FontSize="16"/>
+                                <TextBlock Text="10 秒"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource IconButtonStyle}"
+                                AutomationProperties.Name="前进 10 秒"
+                                ToolTipService.ToolTip="前进 10 秒"
+                                Command="{x:Bind ViewModel.SeekForwardCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <FontIcon Glyph="&#xE893;" FontSize="16"/>
+                                <TextBlock Text="10 秒"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource IconButtonStyle}"
+                                AutomationProperties.Name="后退 60 秒"
+                                ToolTipService.ToolTip="后退 60 秒"
+                                Command="{x:Bind ViewModel.SeekBackward60Command}">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <FontIcon Glyph="&#xE892;" FontSize="16"/>
+                                <TextBlock Text="60 秒"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource IconButtonStyle}"
+                                AutomationProperties.Name="前进 60 秒"
+                                ToolTipService.ToolTip="前进 60 秒"
+                                Command="{x:Bind ViewModel.SeekForward60Command}">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <FontIcon Glyph="&#xE893;" FontSize="16"/>
+                                <TextBlock Text="60 秒"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+                    <!-- 速度 -->
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                        <TextBlock Text="速度"
+                                   VerticalAlignment="Center"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        <ComboBox ItemsSource="{x:Bind ViewModel.SpeedPresets, Mode=OneWay}"
+                                  DisplayMemberPath="Key"
+                                  SelectedIndex="{x:Bind ViewModel.SpeedPresetIndex, Mode=TwoWay}"
+                                  MinWidth="130"
+                                  VerticalAlignment="Center"
+                                  ToolTipService.ToolTip="ffplay 不支持运行时变速，选择后会用新速度重新播放"/>
+
+                        <FontIcon Glyph="&#xE767;" FontSize="16"
+                                  Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                  VerticalAlignment="Center"
+                                  Margin="12,0,0,0"/>
+
+                        <Slider Value="{x:Bind ViewModel.VolumeValue, Mode=TwoWay}"
+                                Minimum="0" Maximum="100" StepFrequency="1"
+                                Width="140"
+                                VerticalAlignment="Center"/>
+
+                        <TextBlock Text="{x:Bind ViewModel.VolumeValue, Mode=OneWay, Converter={StaticResource NumberToStringConverter}, ConverterParameter='0'}"
+                                   Width="28"
+                                   VerticalAlignment="Center"
+                                   HorizontalTextAlignment="Right"
+                                   Style="{StaticResource CaptionTextBlockStyle}"/>
+
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.Muted, Mode=TwoWay}"
+                                      OnContent="静音"
+                                      OffContent="静音"
+                                      VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- ============ 设置（可滚动） ============ -->
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Margin="32,8,32,32" Spacing="16" MaxWidth="1080" HorizontalAlignment="Stretch">
+
+                <TextBlock Text="播放" Style="{StaticResource PageTitleStyle}"/>
+                <TextBlock Text="画面调整、流选择等改动会自动用新参数重新播放；暂停与快进快退为实时控制。"
+                           Style="{StaticResource PageSubtitleStyle}"/>
+
+                <InfoBar IsOpen="{x:Bind ViewModel.ShowStatus, Mode=OneWay}"
+                         Message="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
+                         Severity="{x:Bind ViewModel.StatusSeverity, Mode=OneWay}"
+                         IsClosable="True"/>
+
+                <!-- 播放设置 -->
+                <Border Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="播放设置" Style="{StaticResource CardTitleStyle}"/>
+
+                        <controls:SettingRow Title="起始位置"
+                                             Description="支持 90（秒）、1:30（分:秒）、00:01:30（时:分:秒）">
+                            <controls:SettingRow.SettingContent>
+                                <TextBox Text="{x:Bind ViewModel.SeekToText, Mode=TwoWay}"
+                                         PlaceholderText="从头播放" MinWidth="180"/>
+                            </controls:SettingRow.SettingContent>
+                        </controls:SettingRow>
+
+                        <controls:SettingRow Title="循环次数"
+                                             Description="0 为不循环，-1 为无限循环">
+                            <controls:SettingRow.SettingContent>
+                                <NumberBox Value="{x:Bind ViewModel.LoopCount, Mode=TwoWay}"
+                                           Minimum="-1" Maximum="1000" SmallChange="1"
+                                           SpinButtonPlacementMode="Compact"
+                                           ValidationMode="InvalidInputOverwritten" MinWidth="160"/>
+                            </controls:SettingRow.SettingContent>
+                        </controls:SettingRow>
+
+                        <controls:SettingRow Title="自动旋转"
+                                             Description="按视频的旋转元数据转正画面">
+                            <controls:SettingRow.SettingContent>
+                                <ToggleSwitch IsOn="{x:Bind ViewModel.AutoRotate, Mode=TwoWay}"/>
+                            </controls:SettingRow.SettingContent>
+                        </controls:SettingRow>
+
+                        <controls:SettingRow Title="丢帧保持同步"
+                                             Description="性能不足时丢弃帧以维持音画同步">
+                            <controls:SettingRow.SettingContent>
+                                <ToggleSwitch IsOn="{x:Bind ViewModel.FrameDrop, Mode=TwoWay}"/>
+                            </controls:SettingRow.SettingContent>
+                        </controls:SettingRow>
+
+                        <controls:SettingRow Title="显示内容">
+                            <controls:SettingRow.SettingContent>
+                                <ComboBox ItemsSource="{x:Bind ViewModel.ShowModes, Mode=OneWay}"
+                                          DisplayMemberPath="Key"
+                                          SelectedIndex="{x:Bind ViewModel.ShowModeIndex, Mode=TwoWay}"
+                                          MinWidth="180"/>
+                            </controls:SettingRow.SettingContent>
+                        </controls:SettingRow>
+                    </StackPanel>
+                </Border>
+
+                <!-- 画面调整 -->
+                <Border Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="画面调整" Style="{StaticResource CardTitleStyle}"/>
+
+                        <controls:SettingRow Title="旋转">
+                            <controls:SettingRow.SettingContent>
+                                <ComboBox ItemsSource="{x:Bind ViewModel.Rotations, Mode=OneWay}"
+                                          DisplayMemberPath="Key"
+                                          SelectedIndex="{x:Bind ViewModel.RotationIndex, Mode=TwoWay}"
+                                          MinWidth="160"/>
+                            </controls:SettingRow.SettingContent>
+                        </controls:SettingRow>
+
+                        <controls:SettingRow Title="水平翻转">
+                            <controls:SettingRow.SettingContent>
+                                <ToggleSwitch IsOn="{x:Bind ViewModel.FlipHorizontal, Mode=TwoWay}"/>
+                            </controls:SettingRow.SettingContent>
+                        </controls:SettingRow>
+
+                        <controls:SettingRow Title="垂直翻转">
+                            <controls:SettingRow.SettingContent>
+                                <ToggleSwitch IsOn="{x:Bind ViewModel.FlipVertical, Mode=TwoWay}"/>
+                            </controls:SettingRow.SettingContent>
+                        </controls:SettingRow>
+
+                        <controls:SettingRow Title="亮度">
+                            <controls:SettingRow.SettingContent>
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <Slider Value="{x:Bind ViewModel.Brightness, Mode=TwoWay}"
+                                            Minimum="-1.0" Maximum="1.0" StepFrequency="0.05"
+                                            Width="200" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{x:Bind ViewModel.Brightness, Mode=OneWay, Converter={StaticResource NumberToStringConverter}, ConverterParameter='0.00'}"
+                                               Width="40" VerticalAlignment="Center"
+                                               Style="{StaticResource CaptionTextBlockStyle}"/>
+                                </StackPanel>
+                            </controls:SettingRow.SettingContent>
+                        </controls:SettingRow>
+
+                        <controls:SettingRow Title="对比度">
+                            <controls:SettingRow.SettingContent>
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <Slider Value="{x:Bind ViewModel.Contrast, Mode=TwoWay}"
+                                            Minimum="0" Maximum="2.0" StepFrequency="0.05"
+                                            Width="200" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{x:Bind ViewModel.Contrast, Mode=OneWay, Converter={StaticResource NumberToStringConverter}, ConverterParameter='0.00'}"
+                                               Width="40" VerticalAlignment="Center"
+                                               Style="{StaticResource CaptionTextBlockStyle}"/>
+                                </StackPanel>
+                            </controls:SettingRow.SettingContent>
+                        </controls:SettingRow>
+
+                        <controls:SettingRow Title="饱和度"
+                                             Description="调至 0 即为黑白画面">
+                            <controls:SettingRow.SettingContent>
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+                                    <Slider Value="{x:Bind ViewModel.Saturation, Mode=TwoWay}"
+                                            Minimum="0" Maximum="3.0" StepFrequency="0.05"
+                                            Width="200" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{x:Bind ViewModel.Saturation, Mode=OneWay, Converter={StaticResource NumberToStringConverter}, ConverterParameter='0.00'}"
+                                               Width="40" VerticalAlignment="Center"
+                                               Style="{StaticResource CaptionTextBlockStyle}"/>
+                                </StackPanel>
+                            </controls:SettingRow.SettingContent>
+                        </controls:SettingRow>
+
+                        <controls:SettingRow Title="画面缩放"
+                                             Description="改变实际解码分辨率">
+                            <controls:SettingRow.SettingContent>
+                                <ComboBox ItemsSource="{x:Bind ViewModel.ScalePresets, Mode=OneWay}"
+                                          DisplayMemberPath="Key"
+                                          SelectedIndex="{x:Bind ViewModel.ScalePresetIndex, Mode=TwoWay}"
+                                          MinWidth="200"/>
+                            </controls:SettingRow.SettingContent>
+                        </controls:SettingRow>
+                    </StackPanel>
+                </Border>
+
+                <!-- 音轨与字幕 -->
+                <Border Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="音轨与字幕" Style="{StaticResource CardTitleStyle}"/>
+
+                        <controls:SettingRow Title="禁用音频">
+                            <controls:SettingRow.SettingContent>
+                                <ToggleSwitch IsOn="{x:Bind ViewModel.DisableAudio, Mode=TwoWay}"/>
+                            </controls:SettingRow.SettingContent>
+                        </controls:SettingRow>
+
+                        <controls:SettingRow Title="禁用视频"
+                                             Description="仅播放声音">
+                            <controls:SettingRow.SettingContent>
+                                <ToggleSwitch IsOn="{x:Bind ViewModel.DisableVideo, Mode=TwoWay}"/>
+                            </controls:SettingRow.SettingContent>
+                        </controls:SettingRow>
+
+                        <controls:SettingRow Title="禁用字幕">
+                            <controls:SettingRow.SettingContent>
+                                <ToggleSwitch IsOn="{x:Bind ViewModel.DisableSubtitle, Mode=TwoWay}"/>
+                            </controls:SettingRow.SettingContent>
+                        </controls:SettingRow>
+                    </StackPanel>
+                </Border>
+
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button Style="{StaticResource IconButtonStyle}"
+                            AutomationProperties.Name="恢复默认"
+                            ToolTipService.ToolTip="把所有播放参数恢复为默认值"
+                            Command="{x:Bind ViewModel.ResetCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE777;" FontSize="16"/>
+                            <TextBlock Text="恢复默认"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

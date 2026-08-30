@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="FFmpegUI.Controls.SettingRow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <!-- Windows 设置式行：左侧标题+说明，右侧控件，整行悬停/按下反馈。
+         布局要点：左列 Width="*" 占满剩余空间（标题过长时换行收缩，不会把行撑宽），
+         右列 Width="Auto" 按控件固有宽度收缩，presenter 靠右 → 控件贴行尾。
+         若左 Auto 右 *，长标题会把右列压缩、且内容超宽时把行/窗口撑大；
+         若右列设 MinWidth，ToggleSwitch 又贴不到行尾（偏左）。 -->
+    <Grid x:Name="RootGrid"
+          Background="Transparent"
+          Padding="12,10"
+          ColumnSpacing="16"
+          HorizontalAlignment="Stretch"
+          PointerEntered="RootGrid_PointerEntered"
+          PointerExited="RootGrid_PointerExited">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="CommonStates">
+                <VisualState x:Name="Normal"/>
+                <VisualState x:Name="PointerOver">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Background">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SubtleFillColorSecondaryBrush}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <!-- 左侧文本（左列 *，占满剩余空间；长标题自动换行，不会把行撑宽） -->
+        <StackPanel Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Spacing="2">
+            <TextBlock x:Name="LabelTextBlock"
+                       Style="{StaticResource BodyTextBlockStyle}"
+                       TextWrapping="Wrap"/>
+            <TextBlock x:Name="DescriptionTextBlock"
+                       Style="{StaticResource CaptionTextBlockStyle}"
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                       TextWrapping="Wrap"
+                       Visibility="Collapsed"/>
+        </StackPanel>
+
+        <!-- 右侧自定义控件（右列 Auto，按内容宽度收缩，presenter 靠右贴行尾）。
+             这样 ToggleSwitch（约 40px）、ComboBox、NumberBox 都能真正贴到最右端，
+             且内容不会把行/窗口撑宽。 -->
+        <ContentPresenter x:Name="ControlPresenter"
+                          Grid.Column="1"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Right"
+                          HorizontalContentAlignment="Right"/>
+    </Grid>
+</UserControl>

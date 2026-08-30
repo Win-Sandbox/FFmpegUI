@@ -1,0 +1,1855 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing.Icon" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support text/value conversion are 
+    serialized and stored with the mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently 
+    not extensible. For a given mimetype the value must be set 
+    accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : SoapFormatter
+    
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a TypeConverter's ConvertTo method.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- ==================== 通用 ==================== -->
+  <data name="Common_Separator" xml:space="preserve">
+    <value> · </value>
+  </data>
+  <data name="Common_Unknown" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="Common_NotAvailable" xml:space="preserve">
+    <value>—</value>
+  </data>
+  <data name="Common_Close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <!-- 注意：键的属性后缀必须与 x:Uid 宿主元素的实际属性一致：
+       Button 用 .Content，TextBlock 用 .Text，TextBox 用 .PlaceholderText。
+       属性解析失败会在运行时抛 XamlParseException（0xC000027B）。 -->
+  <data name="BrowseButton.Text" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="BrowseVideoButton.Text" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="BrowseAudioButton.Text" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="BrowseInputButton.Text" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="BrowseFfmpegButton.Text" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="BrowseFfprobeButton.Text" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="BrowseOutputButton.Text" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="SaveAsButton.Text" xml:space="preserve">
+    <value>另存为</value>
+  </data>
+  <data name="PickFolderButton.Text" xml:space="preserve">
+    <value>选择文件夹</value>
+  </data>
+  <data name="AddToQueueButton.Text" xml:space="preserve">
+    <value>添加到任务队列</value>
+  </data>
+  <data name="InputSectionTitle.Text" xml:space="preserve">
+    <value>输入文件</value>
+  </data>
+  <data name="OutputSectionTitle.Text" xml:space="preserve">
+    <value>输出</value>
+  </data>
+  <data name="CommandPreviewTitle.Text" xml:space="preserve">
+    <value>命令预览</value>
+  </data>
+  <data name="OutputPathBox.PlaceholderText" xml:space="preserve">
+    <value>输出文件路径</value>
+  </data>
+  <data name="WidthNumberBox.PlaceholderText" xml:space="preserve">
+    <value>宽</value>
+  </data>
+  <data name="HeightNumberBox.PlaceholderText" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="XNumberBox.PlaceholderText" xml:space="preserve">
+    <value>X</value>
+  </data>
+  <data name="YNumberBox.PlaceholderText" xml:space="preserve">
+    <value>Y</value>
+  </data>
+
+  <!-- ==================== 主窗口导航 ==================== -->
+  <data name="NavTranscode.Content" xml:space="preserve">
+    <value>转码</value>
+  </data>
+  <data name="NavTrim.Content" xml:space="preserve">
+    <value>剪辑</value>
+  </data>
+  <data name="NavExtract.Content" xml:space="preserve">
+    <value>提取</value>
+  </data>
+  <data name="NavMerge.Content" xml:space="preserve">
+    <value>合并与混流</value>
+  </data>
+  <data name="NavCompress.Content" xml:space="preserve">
+    <value>压缩</value>
+  </data>
+  <data name="NavAdvanced.Content" xml:space="preserve">
+    <value>高级参数</value>
+  </data>
+  <data name="NavTasks.Content" xml:space="preserve">
+    <value>任务队列</value>
+  </data>
+  <data name="FfmpegStatusBar.Title" xml:space="preserve">
+    <value>尚未配置 FFmpeg</value>
+  </data>
+  <data name="FfmpegStatusBar.Message" xml:space="preserve">
+    <value>请打开设置页指定 ffmpeg.exe 与 ffprobe.exe，或点击右侧按钮自动探测。</value>
+  </data>
+  <data name="OpenSettingsButton.Content" xml:space="preserve">
+    <value>打开设置</value>
+  </data>
+
+  <!-- ==================== 转码页 ==================== -->
+  <data name="TranscodePageTitle.Text" xml:space="preserve">
+    <value>转码</value>
+  </data>
+  <data name="TranscodePageSubtitle.Text" xml:space="preserve">
+    <value>将视频或音频转换为其它格式，可自由选择编码器、码率、分辨率与帧率。</value>
+  </data>
+  <data name="TranscodeInputPathBox.PlaceholderText" xml:space="preserve">
+    <value>选择或粘贴要转换的文件路径</value>
+  </data>
+  <data name="TranscodeOutputSectionTitle.Text" xml:space="preserve">
+    <value>输出</value>
+  </data>
+  <data name="TranscodeRowContainer.Title" xml:space="preserve">
+    <value>容器格式</value>
+  </data>
+  <data name="TranscodeRowContainer.Description" xml:space="preserve">
+    <value>决定文件扩展名与默认编码器</value>
+  </data>
+  <data name="TranscodeRowOutputPath.Title" xml:space="preserve">
+    <value>输出文件</value>
+  </data>
+  <data name="TranscodeVideoSectionTitle.Text" xml:space="preserve">
+    <value>视频</value>
+  </data>
+  <data name="TranscodeRowKeepVideo.Title" xml:space="preserve">
+    <value>保留视频流</value>
+  </data>
+  <data name="TranscodeRowVideoCodec.Title" xml:space="preserve">
+    <value>视频编码器</value>
+  </data>
+  <data name="TranscodeRowVideoCodec.Description" xml:space="preserve">
+    <value>带 * 的为推荐选项</value>
+  </data>
+  <data name="TranscodeRowRateControl.Title" xml:space="preserve">
+    <value>码率控制方式</value>
+  </data>
+  <data name="TranscodeRowRateControl.Description" xml:space="preserve">
+    <value>CRF 恒定质量适合大多数场景；目标体积适合有大小限制的情况</value>
+  </data>
+  <data name="TranscodeRcCrf.Content" xml:space="preserve">
+    <value>恒定质量 CRF</value>
+  </data>
+  <data name="TranscodeRcQp.Content" xml:space="preserve">
+    <value>恒定量化 QP</value>
+  </data>
+  <data name="TranscodeRcAverage.Content" xml:space="preserve">
+    <value>平均码率</value>
+  </data>
+  <data name="TranscodeRcCbr.Content" xml:space="preserve">
+    <value>恒定码率 CBR</value>
+  </data>
+  <data name="TranscodeRcTargetSize.Content" xml:space="preserve">
+    <value>目标体积</value>
+  </data>
+  <data name="TranscodeRcCopy.Content" xml:space="preserve">
+    <value>直接复制</value>
+  </data>
+  <data name="TranscodeRowCrf.Title" xml:space="preserve">
+    <value>CRF 值</value>
+  </data>
+  <data name="TranscodeRowCrf.Description" xml:space="preserve">
+    <value>0–51，数值越小质量越高、体积越大</value>
+  </data>
+  <data name="TranscodeRowQp.Title" xml:space="preserve">
+    <value>QP 值</value>
+  </data>
+  <data name="TranscodeRowQp.Description" xml:space="preserve">
+    <value>0–51，仅在恒定量化模式下生效</value>
+  </data>
+  <data name="TranscodeRowBitrate.Title" xml:space="preserve">
+    <value>视频码率 (kbps)</value>
+  </data>
+  <data name="TranscodeRowCbrBitrate.Title" xml:space="preserve">
+    <value>目标码率 (kbps)</value>
+  </data>
+  <data name="TranscodeRowCbrMax.Title" xml:space="preserve">
+    <value>最大码率 (kbps)</value>
+  </data>
+  <data name="TranscodeRowCbrBuffer.Title" xml:space="preserve">
+    <value>缓冲区大小 (kbps)</value>
+  </data>
+  <data name="TranscodeRowTargetSize.Title" xml:space="preserve">
+    <value>目标文件大小 (MB)</value>
+  </data>
+  <data name="TranscodeRowTargetSize.Description" xml:space="preserve">
+    <value>按文件时长自动换算所需码率</value>
+  </data>
+  <data name="TranscodeRowPreset.Title" xml:space="preserve">
+    <value>编码预设</value>
+  </data>
+  <data name="TranscodeRowPreset.Description" xml:space="preserve">
+    <value>越慢压缩率越高，速度越慢</value>
+  </data>
+  <data name="TranscodeRowTune.Title" xml:space="preserve">
+    <value>调优 (tune)</value>
+  </data>
+  <data name="TranscodeRowProfile.Title" xml:space="preserve">
+    <value>编码档次 (profile)</value>
+  </data>
+  <data name="TranscodeRowPixelFormat.Title" xml:space="preserve">
+    <value>像素格式</value>
+  </data>
+  <data name="TranscodeRowPixelFormat.Description" xml:space="preserve">
+    <value>不确定时保持「自动」</value>
+  </data>
+  <data name="TranscodeRowHardwareAccel.Title" xml:space="preserve">
+    <value>硬件加速</value>
+  </data>
+  <data name="TranscodeRowHardwareAccel.Description" xml:space="preserve">
+    <value>使用显卡编码前请确认驱动支持</value>
+  </data>
+  <data name="TranscodeResolutionSectionTitle.Text" xml:space="preserve">
+    <value>分辨率与帧率</value>
+  </data>
+  <data name="TranscodeRowResolutionPreset.Title" xml:space="preserve">
+    <value>分辨率预设</value>
+  </data>
+  <data name="TranscodeRowResolutionPreset.Description" xml:space="preserve">
+    <value>也可在下方自定义宽高（偶数更兼容）</value>
+  </data>
+  <data name="TranscodeRowCustomSize.Title" xml:space="preserve">
+    <value>自定义宽高</value>
+  </data>
+  <data name="TranscodeRowCustomSize.Description" xml:space="preserve">
+    <value>原分辨率：</value>
+  </data>
+  <data name="TranscodeRowScaleAlgorithm.Title" xml:space="preserve">
+    <value>缩放算法</value>
+  </data>
+  <data name="TranscodeRowFrameRate.Title" xml:space="preserve">
+    <value>帧率</value>
+  </data>
+  <data name="TranscodeRowKeyframe.Title" xml:space="preserve">
+    <value>关键帧间隔 (GOP)</value>
+  </data>
+  <data name="TranscodeRowKeyframe.Description" xml:space="preserve">
+    <value>0 表示使用编码器默认值</value>
+  </data>
+  <data name="TranscodeRowThreads.Title" xml:space="preserve">
+    <value>编码线程数</value>
+  </data>
+  <data name="TranscodeRowThreads.Description" xml:space="preserve">
+    <value>0 表示由 FFmpeg 自动决定</value>
+  </data>
+  <data name="TranscodeAudioSectionTitle.Text" xml:space="preserve">
+    <value>音频</value>
+  </data>
+  <data name="TranscodeRowKeepAudio.Title" xml:space="preserve">
+    <value>保留音频流</value>
+  </data>
+  <data name="TranscodeRowAudioCodec.Title" xml:space="preserve">
+    <value>音频编码器</value>
+  </data>
+  <data name="TranscodeRowAudioCodec.Description" xml:space="preserve">
+    <value>带 * 的为推荐选项</value>
+  </data>
+  <data name="TranscodeRowAudioRateControl.Title" xml:space="preserve">
+    <value>音频码率控制</value>
+  </data>
+  <data name="TranscodeArcBitrate.Content" xml:space="preserve">
+    <value>指定码率</value>
+  </data>
+  <data name="TranscodeArcQuality.Content" xml:space="preserve">
+    <value>质量 (VBR)</value>
+  </data>
+  <data name="TranscodeArcCopy.Content" xml:space="preserve">
+    <value>直接复制</value>
+  </data>
+  <data name="TranscodeRowAudioBitrate.Title" xml:space="preserve">
+    <value>音频码率 (kbps)</value>
+  </data>
+  <data name="TranscodeRowAudioQuality.Title" xml:space="preserve">
+    <value>音频质量</value>
+  </data>
+  <data name="TranscodeRowAudioQuality.Description" xml:space="preserve">
+    <value>数值越小质量越高（VBR 模式）</value>
+  </data>
+  <data name="TranscodeRowSampleRate.Title" xml:space="preserve">
+    <value>采样率</value>
+  </data>
+  <data name="TranscodeRowChannels.Title" xml:space="preserve">
+    <value>声道数</value>
+  </data>
+  <data name="TranscodeAdvancedSectionTitle.Text" xml:space="preserve">
+    <value>字幕与高级选项</value>
+  </data>
+  <data name="TranscodeRowKeepSubtitle.Title" xml:space="preserve">
+    <value>保留字幕流</value>
+  </data>
+  <data name="TranscodeRowSubtitleCodec.Title" xml:space="preserve">
+    <value>字幕编码器</value>
+  </data>
+  <data name="TranscodeRowSubtitleCodec.Description" xml:space="preserve">
+    <value>部分容器不支持字幕，将自动忽略</value>
+  </data>
+  <data name="TranscodeRowFastStart.Title" xml:space="preserve">
+    <value>优化网络播放 (faststart)</value>
+  </data>
+  <data name="TranscodeRowFastStart.Description" xml:space="preserve">
+    <value>把 MP4/MOV 的索引信息移到文件头部</value>
+  </data>
+  <data name="TranscodeRowKeepMetadata.Title" xml:space="preserve">
+    <value>保留元数据</value>
+  </data>
+  <data name="TranscodeRowKeepChapters.Title" xml:space="preserve">
+    <value>保留章节信息</value>
+  </data>
+  <data name="TranscodeRowExtraArgs.Title" xml:space="preserve">
+    <value>附加输出参数</value>
+  </data>
+  <data name="TranscodeRowExtraArgs.Description" xml:space="preserve">
+    <value>追加在输出文件之前的自定义参数</value>
+  </data>
+  <data name="TranscodeExtraArgsBox.PlaceholderText" xml:space="preserve">
+    <value>例如：-movflags +faststart -metadata title=示例</value>
+  </data>
+  <data name="Suffix_Transcoded" xml:space="preserve">
+    <value>_转码</value>
+  </data>
+
+  <!-- ==================== 剪辑页 ==================== -->
+  <data name="TrimPageTitle.Text" xml:space="preserve">
+    <value>剪辑</value>
+  </data>
+  <data name="TrimPageSubtitle.Text" xml:space="preserve">
+    <value>截取片段、裁剪画面、旋转镜像、调整速度与音量。不启用任何画面处理时可直接复制流，速度极快且无损。</value>
+  </data>
+  <data name="TrimInputPathBox.PlaceholderText" xml:space="preserve">
+    <value>选择或粘贴要剪辑的文件路径</value>
+  </data>
+  <data name="TrimDurationLabel.Text" xml:space="preserve">
+    <value>文件时长：</value>
+  </data>
+  <data name="TrimRangeSectionTitle.Text" xml:space="preserve">
+    <value>截取范围</value>
+  </data>
+  <data name="TrimRowTimeMode.Title" xml:space="preserve">
+    <value>指定方式</value>
+  </data>
+  <data name="TrimTimeModeRange.Content" xml:space="preserve">
+    <value>开始时间 + 结束时间</value>
+  </data>
+  <data name="TrimTimeModeDuration.Content" xml:space="preserve">
+    <value>开始时间 + 时长</value>
+  </data>
+  <data name="TrimRowStartTime.Title" xml:space="preserve">
+    <value>开始时间（秒）</value>
+  </data>
+  <data name="TrimRowStartTime.Description" xml:space="preserve">
+    <value>从此处开始截取</value>
+  </data>
+  <data name="TrimRowEndTime.Title" xml:space="preserve">
+    <value>结束时间（秒）</value>
+  </data>
+  <data name="TrimRowEndTime.Description" xml:space="preserve">
+    <value>留空或 0 表示截取到文件结尾</value>
+  </data>
+  <data name="TrimRowDuration.Title" xml:space="preserve">
+    <value>截取时长（秒）</value>
+  </data>
+  <data name="TrimRowFastSeek.Title" xml:space="preserve">
+    <value>快速定位</value>
+  </data>
+  <data name="TrimRowFastSeek.Description" xml:space="preserve">
+    <value>关闭时定位更精确但速度较慢，需要精确剪辑时请关闭</value>
+  </data>
+  <data name="TrimEncodeSectionTitle.Text" xml:space="preserve">
+    <value>编码方式</value>
+  </data>
+  <data name="TrimRowEncodeMode.Title" xml:space="preserve">
+    <value>处理方式</value>
+  </data>
+  <data name="TrimRowEncodeMode.Description" xml:space="preserve">
+    <value>启用裁剪、旋转、变速或音量调整时会自动切换为重新编码</value>
+  </data>
+  <data name="TrimEncodeCopy.Content" xml:space="preserve">
+    <value>复制流（无损，速度快）</value>
+  </data>
+  <data name="TrimEncodeReencode.Content" xml:space="preserve">
+    <value>重新编码（可应用画面调整）</value>
+  </data>
+  <data name="TrimRowCrf.Title" xml:space="preserve">
+    <value>CRF 值</value>
+  </data>
+  <data name="TrimRowCrf.Description" xml:space="preserve">
+    <value>0–51，数值越小质量越高</value>
+  </data>
+  <data name="TrimRowAudioBitrate.Title" xml:space="preserve">
+    <value>音频码率 (kbps)</value>
+  </data>
+  <data name="TrimVisualSectionTitle.Text" xml:space="preserve">
+    <value>画面调整</value>
+  </data>
+  <data name="TrimRowCrop.Title" xml:space="preserve">
+    <value>裁剪画面 (crop)</value>
+  </data>
+  <data name="TrimRowCrop.Description" xml:space="preserve">
+    <value>启用后需要重新编码</value>
+  </data>
+  <data name="TrimRowCropSize.Title" xml:space="preserve">
+    <value>裁剪区域</value>
+  </data>
+  <data name="TrimRowCropOrigin.Title" xml:space="preserve">
+    <value>起始坐标</value>
+  </data>
+  <data name="TrimRowCropOrigin.Description" xml:space="preserve">
+    <value>裁剪区域左上角在原画面中的位置</value>
+  </data>
+  <data name="TrimRowRotate.Title" xml:space="preserve">
+    <value>旋转</value>
+  </data>
+  <data name="TrimRowFlip.Title" xml:space="preserve">
+    <value>翻转</value>
+  </data>
+  <data name="TrimSpeedSectionTitle.Text" xml:space="preserve">
+    <value>速度与音量</value>
+  </data>
+  <data name="TrimRowSpeedEnable.Title" xml:space="preserve">
+    <value>调整播放速度</value>
+  </data>
+  <data name="TrimRowSpeedEnable.Description" xml:space="preserve">
+    <value>例如 2 表示 2 倍速，0.5 表示半速</value>
+  </data>
+  <data name="TrimRowSpeed.Title" xml:space="preserve">
+    <value>速度倍数</value>
+  </data>
+  <data name="TrimRowSpeed.Description" xml:space="preserve">
+    <value>支持 0.25–4.0，音视频保持同步</value>
+  </data>
+  <data name="TrimRowVolumeEnable.Title" xml:space="preserve">
+    <value>调整音量</value>
+  </data>
+  <data name="TrimRowVolume.Title" xml:space="preserve">
+    <value>音量增益 (dB)</value>
+  </data>
+  <data name="TrimRowVolume.Description" xml:space="preserve">
+    <value>正数增大，负数减小</value>
+  </data>
+  <data name="TrimRowOutputPath.Title" xml:space="preserve">
+    <value>输出文件</value>
+  </data>
+  <data name="Trim_TimeMode_Range" xml:space="preserve">
+    <value>起止时间</value>
+  </data>
+  <data name="Trim_TimeMode_Duration" xml:space="preserve">
+    <value>起始时间 + 时长</value>
+  </data>
+  <data name="Trim_Encode_Copy" xml:space="preserve">
+    <value>复制流（无损，速度快）</value>
+  </data>
+  <data name="Trim_Encode_Reencode" xml:space="preserve">
+    <value>重新编码（可应用画面调整）</value>
+  </data>
+  <data name="Trim_Rotate_None" xml:space="preserve">
+    <value>不旋转</value>
+  </data>
+  <data name="Trim_Rotate_Cw90" xml:space="preserve">
+    <value>顺时针 90°</value>
+  </data>
+  <data name="Trim_Rotate_180" xml:space="preserve">
+    <value>180°</value>
+  </data>
+  <data name="Trim_Rotate_Ccw90" xml:space="preserve">
+    <value>逆时针 90°</value>
+  </data>
+  <data name="Trim_Flip_None" xml:space="preserve">
+    <value>不翻转</value>
+  </data>
+  <data name="Trim_Flip_Horizontal" xml:space="preserve">
+    <value>水平翻转（镜像）</value>
+  </data>
+  <data name="Trim_Flip_Vertical" xml:space="preserve">
+    <value>垂直翻转</value>
+  </data>
+  <data name="Trim_ToEnd" xml:space="preserve">
+    <value>结尾</value>
+  </data>
+  <data name="Suffix_Trimmed" xml:space="preserve">
+    <value>_剪辑</value>
+  </data>
+
+  <!-- ==================== 提取页 ==================== -->
+  <data name="ExtractPageTitle.Text" xml:space="preserve">
+    <value>提取</value>
+  </data>
+  <data name="ExtractPageSubtitle.Text" xml:space="preserve">
+    <value>从媒体文件中提取音频、视频、字幕，或按帧率抽取图片序列。</value>
+  </data>
+  <data name="ExtractInputPathBox.PlaceholderText" xml:space="preserve">
+    <value>选择或粘贴要处理的媒体文件路径</value>
+  </data>
+  <data name="ExtractModeSectionTitle.Text" xml:space="preserve">
+    <value>提取方式</value>
+  </data>
+  <data name="ExtractRowMode.Title" xml:space="preserve">
+    <value>要提取的内容</value>
+  </data>
+  <data name="ExtractModeAudio.Content" xml:space="preserve">
+    <value>提取音频</value>
+  </data>
+  <data name="ExtractModeVideo.Content" xml:space="preserve">
+    <value>提取视频（去掉音频）</value>
+  </data>
+  <data name="ExtractModeSubtitle.Content" xml:space="preserve">
+    <value>提取字幕</value>
+  </data>
+  <data name="ExtractModeFrame.Content" xml:space="preserve">
+    <value>抽帧为图片</value>
+  </data>
+  <data name="ExtractRowAudioFormat.Title" xml:space="preserve">
+    <value>音频格式</value>
+  </data>
+  <data name="ExtractRowCopyAudio.Title" xml:space="preserve">
+    <value>保持原始编码</value>
+  </data>
+  <data name="ExtractRowCopyAudio.Description" xml:space="preserve">
+    <value>直接复制音轨，速度快且无损；关闭则重新编码</value>
+  </data>
+  <data name="ExtractRowAudioBitrate.Title" xml:space="preserve">
+    <value>音频码率 (kbps)</value>
+  </data>
+  <data name="ExtractRowCopyVideo.Title" xml:space="preserve">
+    <value>保持原始编码</value>
+  </data>
+  <data name="ExtractRowCopyVideo.Description" xml:space="preserve">
+    <value>直接复制视频轨，仅去掉音频</value>
+  </data>
+  <data name="ExtractRowSubtitleStream.Title" xml:space="preserve">
+    <value>字幕轨道</value>
+  </data>
+  <data name="ExtractRowSubtitleStream.Description" xml:space="preserve">
+    <value>选择文件后自动列出可用的字幕流</value>
+  </data>
+  <data name="ExtractRowSubtitleFormat.Title" xml:space="preserve">
+    <value>字幕格式</value>
+  </data>
+  <data name="ExtractRowFramesPerSecond.Title" xml:space="preserve">
+    <value>每秒抽取帧数</value>
+  </data>
+  <data name="ExtractRowFramesPerSecond.Description" xml:space="preserve">
+    <value>例如 1 表示每秒保存 1 张图片</value>
+  </data>
+  <data name="ExtractRowImageFormat.Title" xml:space="preserve">
+    <value>图片格式</value>
+  </data>
+  <data name="ExtractRowStart.Title" xml:space="preserve">
+    <value>起始时间（秒）</value>
+  </data>
+  <data name="ExtractRowStart.Description" xml:space="preserve">
+    <value>0 表示从开头开始</value>
+  </data>
+  <data name="ExtractRowDuration.Title" xml:space="preserve">
+    <value>持续时长（秒）</value>
+  </data>
+  <data name="ExtractRowDuration.Description" xml:space="preserve">
+    <value>0 表示抽到文件结尾</value>
+  </data>
+  <data name="ExtractRowFrameFolder.Title" xml:space="preserve">
+    <value>图片保存位置</value>
+  </data>
+  <data name="ExtractFrameFolderBox.PlaceholderText" xml:space="preserve">
+    <value>选择保存图片的文件夹</value>
+  </data>
+  <data name="ExtractRowFramePrefix.Title" xml:space="preserve">
+    <value>文件名前缀</value>
+  </data>
+  <data name="ExtractRowFramePrefix.Description" xml:space="preserve">
+    <value>最终文件名形如「前缀_00001.png」</value>
+  </data>
+  <data name="ExtractRowOutputPath.Title" xml:space="preserve">
+    <value>输出文件</value>
+  </data>
+  <data name="Extract_Mode_Audio" xml:space="preserve">
+    <value>提取音频</value>
+  </data>
+  <data name="Extract_Mode_Video" xml:space="preserve">
+    <value>提取视频（去掉音频）</value>
+  </data>
+  <data name="Extract_Mode_Subtitle" xml:space="preserve">
+    <value>提取字幕</value>
+  </data>
+  <data name="Extract_Mode_Frame" xml:space="preserve">
+    <value>抽帧为图片</value>
+  </data>
+  <data name="Subtitle_Srt" xml:space="preserve">
+    <value>SubRip (SRT)</value>
+  </data>
+  <data name="Subtitle_Ass" xml:space="preserve">
+    <value>ASS</value>
+  </data>
+  <data name="Subtitle_Ssa" xml:space="preserve">
+    <value>SSA</value>
+  </data>
+  <data name="Subtitle_Webvtt" xml:space="preserve">
+    <value>WebVTT</value>
+  </data>
+  <data name="Subtitle_MovText" xml:space="preserve">
+    <value>MOV/MP4 文本字幕</value>
+  </data>
+  <data name="Image_Png" xml:space="preserve">
+    <value>PNG</value>
+  </data>
+  <data name="Image_Jpeg" xml:space="preserve">
+    <value>JPEG</value>
+  </data>
+  <data name="Image_Bmp" xml:space="preserve">
+    <value>BMP</value>
+  </data>
+  <data name="Image_Tiff" xml:space="preserve">
+    <value>TIFF</value>
+  </data>
+  <data name="Suffix_Audio" xml:space="preserve">
+    <value>_音频</value>
+  </data>
+  <data name="Suffix_NoAudio" xml:space="preserve">
+    <value>_无声</value>
+  </data>
+  <data name="Suffix_Subtitle" xml:space="preserve">
+    <value>_字幕</value>
+  </data>
+
+  <!-- ==================== 压缩页 ==================== -->
+  <data name="CompressPageTitle.Text" xml:space="preserve">
+    <value>压缩</value>
+  </data>
+  <data name="CompressPageSubtitle.Text" xml:space="preserve">
+    <value>按目标文件大小或质量等级压缩视频，可同时降低分辨率以进一步减小体积。</value>
+  </data>
+  <data name="CompressInputPathBox.PlaceholderText" xml:space="preserve">
+    <value>选择或粘贴要压缩的文件路径</value>
+  </data>
+  <data name="CompressStrategySectionTitle.Text" xml:space="preserve">
+    <value>压缩策略</value>
+  </data>
+  <data name="CompressRowMode.Title" xml:space="preserve">
+    <value>压缩方式</value>
+  </data>
+  <data name="CompressRowMode.Description" xml:space="preserve">
+    <value>按目标体积时会自动换算所需码率</value>
+  </data>
+  <data name="CompressModeSize.Content" xml:space="preserve">
+    <value>按目标文件大小</value>
+  </data>
+  <data name="CompressModeQuality.Content" xml:space="preserve">
+    <value>按质量（CRF）</value>
+  </data>
+  <data name="CompressRowTargetSize.Title" xml:space="preserve">
+    <value>目标文件大小 (MB)</value>
+  </data>
+  <data name="CompressRowCrf.Title" xml:space="preserve">
+    <value>质量 CRF</value>
+  </data>
+  <data name="CompressRowCrf.Description" xml:space="preserve">
+    <value>0–51，推荐 26–30 用于压缩</value>
+  </data>
+  <data name="CompressRowScale.Title" xml:space="preserve">
+    <value>分辨率缩放</value>
+  </data>
+  <data name="CompressRowScaleAlgorithm.Title" xml:space="preserve">
+    <value>缩放算法</value>
+  </data>
+  <data name="CompressEncodeSectionTitle.Text" xml:space="preserve">
+    <value>编码参数</value>
+  </data>
+  <data name="CompressRowContainer.Title" xml:space="preserve">
+    <value>容器格式</value>
+  </data>
+  <data name="CompressRowPreset.Title" xml:space="preserve">
+    <value>编码预设</value>
+  </data>
+  <data name="CompressRowPreset.Description" xml:space="preserve">
+    <value>越慢压缩率越高，速度越慢</value>
+  </data>
+  <data name="CompressRowAudioBitrate.Title" xml:space="preserve">
+    <value>音频码率 (kbps)</value>
+  </data>
+  <data name="CompressRowHardwareAccel.Title" xml:space="preserve">
+    <value>使用 NVIDIA 显卡编码</value>
+  </data>
+  <data name="CompressRowHardwareAccel.Description" xml:space="preserve">
+    <value>未安装 NVIDIA 显卡时请勿启用</value>
+  </data>
+  <data name="CompressRowOutputPath.Title" xml:space="preserve">
+    <value>输出文件</value>
+  </data>
+  <data name="Compress_Mode_Size" xml:space="preserve">
+    <value>按目标文件大小</value>
+  </data>
+  <data name="Compress_Mode_Quality" xml:space="preserve">
+    <value>按质量（CRF）</value>
+  </data>
+  <data name="Scale_100" xml:space="preserve">
+    <value>保持原始分辨率</value>
+  </data>
+  <data name="Scale_75" xml:space="preserve">
+    <value>原始分辨率的 75%</value>
+  </data>
+  <data name="Scale_50" xml:space="preserve">
+    <value>原始分辨率的 50%</value>
+  </data>
+  <data name="Scale_25" xml:space="preserve">
+    <value>原始分辨率的 25%</value>
+  </data>
+  <data name="Compress_EstimateHint" xml:space="preserve">
+    <value>选择输入文件后显示</value>
+  </data>
+  <data name="Compress_TargetTooSmall" xml:space="preserve">
+    <value>目标体积过小，请增大目标大小</value>
+  </data>
+  <data name="Compress_EstimateFormat" xml:space="preserve">
+    <value>预计视频码率约 {0} kbps（音频 {1} kbps）</value>
+  </data>
+  <data name="Compress_ResolutionKeepFormat" xml:space="preserve">
+    <value>{0}×{1}（保持不变）</value>
+  </data>
+  <data name="Compress_ResolutionScaleFormat" xml:space="preserve">
+    <value>{0}×{1}（{2}%）</value>
+  </data>
+  <data name="Suffix_Compressed" xml:space="preserve">
+    <value>_压缩</value>
+  </data>
+
+  <!-- ==================== 合并页 ==================== -->
+  <data name="MergePageTitle.Text" xml:space="preserve">
+    <value>合并与混流</value>
+  </data>
+  <data name="MergePageSubtitle.Text" xml:space="preserve">
+    <value>把多个视频按顺序合并、为视频替换音轨，或将图片序列合成为视频。</value>
+  </data>
+  <data name="MergeModeSectionTitle.Text" xml:space="preserve">
+    <value>处理方式</value>
+  </data>
+  <data name="MergeRowMode.Title" xml:space="preserve">
+    <value>选择功能</value>
+  </data>
+  <data name="MergeModeVideo.Content" xml:space="preserve">
+    <value>视频合并</value>
+  </data>
+  <data name="MergeModeMux.Content" xml:space="preserve">
+    <value>音视频混流</value>
+  </data>
+  <data name="MergeModeImage.Content" xml:space="preserve">
+    <value>图片序列合成视频</value>
+  </data>
+  <data name="MergeFileListTitle.Text" xml:space="preserve">
+    <value>要合并的文件（按顺序）</value>
+  </data>
+  <data name="AddFilesButton.Text" xml:space="preserve">
+    <value>添加文件</value>
+  </data>
+  <data name="RemoveFileButton.Text" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="ClearFilesButton.Text" xml:space="preserve">
+    <value>清空</value>
+  </data>
+  <!-- 无文本图标按钮：AutomationProperties.Name 供屏幕阅读器，
+       ToolTipService.ToolTip 供鼠标悬停提示（官方 a11y 规范两者都要提供） -->
+  <data name="TipMoveUp.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>上移</value>
+  </data>
+  <data name="TipMoveUp.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>上移</value>
+  </data>
+  <data name="TipMoveDown.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>下移</value>
+  </data>
+  <data name="TipMoveDown.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
+    <value>下移</value>
+  </data>
+  <data name="OpenFolderButton.Label" xml:space="preserve">
+    <value>打开目录</value>
+  </data>
+  <data name="OpenFolderButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>打开输出文件所在文件夹</value>
+  </data>
+  <data name="MergeRowMethod.Title" xml:space="preserve">
+    <value>合并方式</value>
+  </data>
+  <data name="MergeMethodCopy.Content" xml:space="preserve">
+    <value>无损合并（直接复制流）</value>
+  </data>
+  <data name="MergeMethodReencode.Content" xml:space="preserve">
+    <value>重新编码（兼容性最好）</value>
+  </data>
+  <data name="MergeRowCrf.Title" xml:space="preserve">
+    <value>CRF 值</value>
+  </data>
+  <data name="MergeRowCrf.Description" xml:space="preserve">
+    <value>仅在重新编码时生效</value>
+  </data>
+  <data name="MergeMuxSectionTitle.Text" xml:space="preserve">
+    <value>音视频混流</value>
+  </data>
+  <data name="MergeRowVideoFile.Title" xml:space="preserve">
+    <value>视频文件（提供画面）</value>
+  </data>
+  <data name="MergeVideoFileBox.PlaceholderText" xml:space="preserve">
+    <value>选择视频文件</value>
+  </data>
+  <data name="MergeRowAudioFile.Title" xml:space="preserve">
+    <value>音频文件（提供声音）</value>
+  </data>
+  <data name="MergeAudioFileBox.PlaceholderText" xml:space="preserve">
+    <value>选择音频文件</value>
+  </data>
+  <data name="MergeRowMuxMethod.Title" xml:space="preserve">
+    <value>处理方式</value>
+  </data>
+  <data name="MergeRowMuxMethod.Description" xml:space="preserve">
+    <value>编码参数一致时可直接复制流</value>
+  </data>
+  <data name="MergeMuxCopy.Content" xml:space="preserve">
+    <value>直接复制流</value>
+  </data>
+  <data name="MergeMuxReencode.Content" xml:space="preserve">
+    <value>重新编码</value>
+  </data>
+  <data name="MergeImageSectionTitle.Text" xml:space="preserve">
+    <value>图片序列合成视频</value>
+  </data>
+  <data name="MergeRowImagePattern.Title" xml:space="preserve">
+    <value>图片序列模式</value>
+  </data>
+  <data name="MergeRowImagePattern.Description" xml:space="preserve">
+    <value>使用 %05d 表示 5 位序号，例如 C:\frames\img%05d.png</value>
+  </data>
+  <data name="MergeImagePatternBox.PlaceholderText" xml:space="preserve">
+    <value>C:\frames\img%05d.png</value>
+  </data>
+  <data name="MergeRowFrameRate.Title" xml:space="preserve">
+    <value>帧率 (fps)</value>
+  </data>
+  <data name="MergeRowImageCrf.Title" xml:space="preserve">
+    <value>CRF 值</value>
+  </data>
+  <data name="MergeRowImageCrf.Description" xml:space="preserve">
+    <value>数值越小质量越高</value>
+  </data>
+  <data name="MergeRowOutputPath.Title" xml:space="preserve">
+    <value>输出文件</value>
+  </data>
+  <data name="Merge_Mode_Video" xml:space="preserve">
+    <value>视频合并</value>
+  </data>
+  <data name="Merge_Mode_Mux" xml:space="preserve">
+    <value>音视频混流</value>
+  </data>
+  <data name="Merge_Mode_Image" xml:space="preserve">
+    <value>图片序列合成视频</value>
+  </data>
+  <data name="Merge_Method_Copy" xml:space="preserve">
+    <value>无损合并（直接复制流，要求编码参数一致）</value>
+  </data>
+  <data name="Merge_Method_Reencode" xml:space="preserve">
+    <value>重新编码（兼容性最好，速度较慢）</value>
+  </data>
+  <data name="Suffix_Merged" xml:space="preserve">
+    <value>_合并</value>
+  </data>
+
+  <!-- ==================== 高级参数页 ==================== -->
+  <data name="AdvancedPageTitle.Text" xml:space="preserve">
+    <value>高级参数</value>
+  </data>
+  <data name="AdvancedPageSubtitle.Text" xml:space="preserve">
+    <value>直接编写完整的 FFmpeg 参数。{input} 表示输入文件，{output} 表示输出文件，可用于实现界面尚未内置的任意功能。</value>
+  </data>
+  <data name="AdvancedTemplateSectionTitle.Text" xml:space="preserve">
+    <value>参数模板</value>
+  </data>
+  <data name="AdvancedRowTemplate.Title" xml:space="preserve">
+    <value>选择模板</value>
+  </data>
+  <data name="ApplyTemplateButton.Text" xml:space="preserve">
+    <value>应用</value>
+  </data>
+  <data name="DeleteTemplateButton.Text" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="AdvancedRowSaveTemplate.Title" xml:space="preserve">
+    <value>另存为模板</value>
+  </data>
+  <data name="AdvancedRowSaveTemplate.Description" xml:space="preserve">
+    <value>保存后可在下拉框中直接选用</value>
+  </data>
+  <data name="TemplateNameBox.PlaceholderText" xml:space="preserve">
+    <value>输入模板名称</value>
+  </data>
+  <data name="SaveTemplateButton.Text" xml:space="preserve">
+    <value>保存模板</value>
+  </data>
+  <data name="AdvancedFileSectionTitle.Text" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="AdvancedRowInputPath.Title" xml:space="preserve">
+    <value>输入文件</value>
+  </data>
+  <data name="AdvancedRowInputPath.Description" xml:space="preserve">
+    <value>模板中的 {input} 会替换为该路径</value>
+  </data>
+  <data name="AdvancedInputPathBox.PlaceholderText" xml:space="preserve">
+    <value>选择输入文件</value>
+  </data>
+  <data name="AdvancedRowOutputPath.Title" xml:space="preserve">
+    <value>输出文件</value>
+  </data>
+  <data name="AdvancedRowOutputPath.Description" xml:space="preserve">
+    <value>模板中的 {output} 会替换为该路径</value>
+  </data>
+  <data name="AdvancedArgsSectionTitle.Text" xml:space="preserve">
+    <value>参数</value>
+  </data>
+  <data name="AdvancedArgsBox.PlaceholderText" xml:space="preserve">
+    <value>-i "{input}" -c:v libx264 -crf 20 "{output}"</value>
+  </data>
+  <data name="Advanced_PlaceholderHint" xml:space="preserve">
+    <value>占位符 {input} 表示输入文件，{output} 表示输出文件。</value>
+  </data>
+  <data name="Advanced_CustomTemplate" xml:space="preserve">
+    <value>用户自定义模板</value>
+  </data>
+  <data name="Suffix_Output" xml:space="preserve">
+    <value>_输出</value>
+  </data>
+
+  <!-- ==================== 任务队列页 ==================== -->
+  <data name="TasksPageTitle.Text" xml:space="preserve">
+    <value>任务队列</value>
+  </data>
+  <data name="TasksPageSubtitle.Text" xml:space="preserve">
+    <value>所有处理任务都在此排队执行，可随时查看进度、取消任务或查看完整日志。</value>
+  </data>
+  <data name="TasksRunningLabel.Text" xml:space="preserve">
+    <value>进行中</value>
+  </data>
+  <data name="TasksPendingLabel.Text" xml:space="preserve">
+    <value>等待中</value>
+  </data>
+  <data name="TasksCompletedLabel.Text" xml:space="preserve">
+    <value>已完成</value>
+  </data>
+  <data name="TasksFailedLabel.Text" xml:space="preserve">
+    <value>失败/取消</value>
+  </data>
+  <data name="StartAllButton.Label" xml:space="preserve">
+    <value>全部开始</value>
+  </data>
+  <data name="StartAllButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>开始全部等待中的任务</value>
+  </data>
+  <data name="CancelAllButton.Label" xml:space="preserve">
+    <value>全部取消</value>
+  </data>
+  <data name="CancelAllButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>取消全部正在运行和等待中的任务</value>
+  </data>
+  <data name="ViewLogButton.Label" xml:space="preserve">
+    <value>日志</value>
+  </data>
+  <data name="ViewLogButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>查看所选任务的日志</value>
+  </data>
+  <data name="ClearFinishedButton.Label" xml:space="preserve">
+    <value>清除已完成</value>
+  </data>
+  <data name="ClearFinishedButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>清除已完成的任务</value>
+  </data>
+  <data name="TasksEmptyTitle.Text" xml:space="preserve">
+    <value>暂无任务</value>
+  </data>
+  <data name="TasksEmptyHint.Text" xml:space="preserve">
+    <value>在左侧任一一页配置参数后点击「添加到任务队列」即可开始处理。</value>
+  </data>
+  <data name="Tasks_LogDialogTitleFormat" xml:space="preserve">
+    <value>任务日志 — {0}</value>
+  </data>
+  <data name="Tasks_NoLog" xml:space="preserve">
+    <value>（暂无日志输出）</value>
+  </data>
+
+  <!-- ==================== 任务状态与详情 ==================== -->
+  <data name="TaskState_Queued" xml:space="preserve">
+    <value>等待中</value>
+  </data>
+  <data name="TaskState_Running" xml:space="preserve">
+    <value>进行中</value>
+  </data>
+  <data name="TaskState_Completed" xml:space="preserve">
+    <value>已完成</value>
+  </data>
+  <data name="TaskState_Failed" xml:space="preserve">
+    <value>失败</value>
+  </data>
+  <data name="TaskState_Canceled" xml:space="preserve">
+    <value>已取消</value>
+  </data>
+  <data name="Task_Detail_CanceledBeforeStart" xml:space="preserve">
+    <value>任务在启动前被取消。</value>
+  </data>
+  <data name="Task_Detail_Canceled" xml:space="preserve">
+    <value>任务已取消。</value>
+  </data>
+  <data name="Task_Detail_OutputFormat" xml:space="preserve">
+    <value>输出：{0}</value>
+  </data>
+  <data name="Task_Detail_Failed" xml:space="preserve">
+    <value>处理失败，请查看日志。</value>
+  </data>
+  <data name="Task_Detail_ExceptionFormat" xml:space="preserve">
+    <value>发生异常：{0}</value>
+  </data>
+  <data name="Task_RemainingFormat" xml:space="preserve">
+    <value>剩余 {0}</value>
+  </data>
+
+  <!-- ==================== 设置页 ==================== -->
+  <data name="SettingsPageTitle.Text" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="SettingsPageSubtitle.Text" xml:space="preserve">
+    <value>配置 FFmpeg 可执行文件位置、输出目录、任务并发数与界面外观。</value>
+  </data>
+  <data name="SettingsFfmpegSectionTitle.Text" xml:space="preserve">
+    <value>FFmpeg</value>
+  </data>
+  <data name="SettingsRowFfmpegPath.Title" xml:space="preserve">
+    <value>ffmpeg.exe</value>
+  </data>
+  <data name="SettingsRowFfmpegPath.Description" xml:space="preserve">
+    <value>用于执行转码与处理任务的可执行文件</value>
+  </data>
+  <data name="SettingsFfmpegPathBox.PlaceholderText" xml:space="preserve">
+    <value>例如 C:\ffmpeg\bin\ffmpeg.exe</value>
+  </data>
+  <data name="SettingsRowFfprobePath.Title" xml:space="preserve">
+    <value>ffprobe.exe</value>
+  </data>
+  <data name="SettingsRowFfprobePath.Description" xml:space="preserve">
+    <value>用于读取媒体文件信息，通常与 ffmpeg 在同一目录</value>
+  </data>
+  <data name="SettingsFfprobePathBox.PlaceholderText" xml:space="preserve">
+    <value>例如 C:\ffmpeg\bin\ffprobe.exe</value>
+  </data>
+  <data name="AutoDetectButton.Text" xml:space="preserve">
+    <value>自动探测</value>
+  </data>
+  <data name="SettingsAutoDetectHint.Text" xml:space="preserve">
+    <value>自动探测会依次检查 PATH 环境变量、常见安装目录（含 WinGet 安装位置）与应用目录。</value>
+  </data>
+  <data name="SettingsOutputSectionTitle.Text" xml:space="preserve">
+    <value>输出与任务</value>
+  </data>
+  <data name="SettingsRowOutputDirectory.Title" xml:space="preserve">
+    <value>默认输出目录</value>
+  </data>
+  <data name="SettingsRowOutputDirectory.Description" xml:space="preserve">
+    <value>留空表示输出到与源文件相同的目录</value>
+  </data>
+  <data name="SettingsOutputDirBox.PlaceholderText" xml:space="preserve">
+    <value>留空则使用源文件所在目录</value>
+  </data>
+  <data name="SettingsRowParallelTasks.Title" xml:space="preserve">
+    <value>同时执行的任务数</value>
+  </data>
+  <data name="Settings_ProcessorInfoFormat" xml:space="preserve">
+    <value>当前设备逻辑处理器数量：{0}</value>
+  </data>
+  <data name="SettingsRowOverwrite.Title" xml:space="preserve">
+    <value>覆盖已存在的输出文件</value>
+  </data>
+  <data name="SettingsRowAutoStart.Title" xml:space="preserve">
+    <value>加入队列后自动开始</value>
+  </data>
+  <data name="SettingsRowNotify.Title" xml:space="preserve">
+    <value>任务完成后显示提示</value>
+  </data>
+  <data name="SettingsRowAutoDetect.Title" xml:space="preserve">
+    <value>启动时自动探测 FFmpeg</value>
+  </data>
+  <data name="SettingsAppearanceSectionTitle.Text" xml:space="preserve">
+    <value>外观</value>
+  </data>
+  <data name="SettingsRowTheme.Title" xml:space="preserve">
+    <value>应用主题</value>
+  </data>
+  <data name="SettingsRowTheme.Description" xml:space="preserve">
+    <value>跟随系统会随 Windows 主题自动切换</value>
+  </data>
+  <data name="SettingsRowBackdrop.Title" xml:space="preserve">
+    <value>窗口背景材质</value>
+  </data>
+  <data name="SettingsRowBackdrop.Description" xml:space="preserve">
+    <value>云母 (Mica) 为 Windows 11 推荐材质，Windows 10 上自动降级为纯色</value>
+  </data>
+  <data name="SaveSettingsButton.Text" xml:space="preserve">
+    <value>保存设置</value>
+  </data>
+  <data name="ResetSettingsButton.Text" xml:space="preserve">
+    <value>恢复默认</value>
+  </data>
+  <data name="SettingsAboutSectionTitle.Text" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="Settings_AboutDescriptionFormat" xml:space="preserve">
+    <value>FFmpegUI {0} — 使用 WinUI 3 与 Fluent Design 构建的 FFmpeg 图形界面。</value>
+  </data>
+  <data name="Settings_DataDirectoryFormat" xml:space="preserve">
+    <value>数据与日志目录：{0}</value>
+  </data>
+  <data name="SettingsAboutDisclaimer.Text" xml:space="preserve">
+    <value>本应用仅为 FFmpeg 的图形界面，所有处理均由 FFmpeg 完成。</value>
+  </data>
+  <data name="Theme_System" xml:space="preserve">
+    <value>跟随系统</value>
+  </data>
+  <data name="Theme_Light" xml:space="preserve">
+    <value>浅色</value>
+  </data>
+  <data name="Theme_Dark" xml:space="preserve">
+    <value>深色</value>
+  </data>
+  <data name="Backdrop_Mica" xml:space="preserve">
+    <value>云母 (Mica)</value>
+  </data>
+  <data name="Backdrop_MicaAlt" xml:space="preserve">
+    <value>云母 Alt (Mica Alt)</value>
+  </data>
+  <data name="Backdrop_Acrylic" xml:space="preserve">
+    <value>亚克力 (Acrylic)</value>
+  </data>
+  <data name="Backdrop_None" xml:space="preserve">
+    <value>不使用系统材质</value>
+  </data>
+
+  <!-- ==================== 消息与错误 ==================== -->
+  <data name="Msg_NoFfmpeg" xml:space="preserve">
+    <value>尚未配置 FFmpeg，请打开设置页指定 ffmpeg.exe 与 ffprobe.exe。</value>
+  </data>
+  <data name="Msg_NoInputFile" xml:space="preserve">
+    <value>请先选择一个有效的输入文件。</value>
+  </data>
+  <data name="Msg_NoOutputPath" xml:space="preserve">
+    <value>请指定输出文件路径。</value>
+  </data>
+  <data name="Msg_NeedOneStream" xml:space="preserve">
+    <value>至少需要保留视频、音频或字幕中的一种。</value>
+  </data>
+  <data name="Msg_OutputDirMissing" xml:space="preserve">
+    <value>输出目录不存在，请重新选择输出路径。</value>
+  </data>
+  <data name="Msg_InvalidEndTime" xml:space="preserve">
+    <value>结束时间必须晚于开始时间。</value>
+  </data>
+  <data name="Msg_InvalidDuration" xml:space="preserve">
+    <value>请填写要截取的时长。</value>
+  </data>
+  <data name="Msg_NoSubtitleStream" xml:space="preserve">
+    <value>该文件中没有找到字幕流。</value>
+  </data>
+  <data name="Msg_NoFrameFolder" xml:space="preserve">
+    <value>请选择用于保存图片的文件夹。</value>
+  </data>
+  <data name="Msg_InvalidFps" xml:space="preserve">
+    <value>每秒抽取帧数必须大于 0。</value>
+  </data>
+  <data name="Msg_InvalidTargetSize" xml:space="preserve">
+    <value>目标文件大小必须大于 0 MB。</value>
+  </data>
+  <data name="Msg_NoDurationForTargetSize" xml:space="preserve">
+    <value>无法获取输入文件时长，无法按目标体积计算码率，请改用「按质量」模式。</value>
+  </data>
+  <data name="Msg_NeedTwoFiles" xml:space="preserve">
+    <value>至少需要添加两个视频文件才能合并。</value>
+  </data>
+  <data name="Msg_ConcatListFailed" xml:space="preserve">
+    <value>无法创建临时合并列表文件。</value>
+  </data>
+  <data name="Msg_InvalidMuxFiles" xml:space="preserve">
+    <value>请选择有效的视频文件与音频文件。</value>
+  </data>
+  <data name="Msg_EmptyImagePattern" xml:space="preserve">
+    <value>请填写图片序列模式（如 C:\frames\img%05d.png）。</value>
+  </data>
+  <data name="Msg_EmptyImagePatternPlain" xml:space="preserve">
+    <value>请填写图片序列模式，例如 C:\frames\img%05d.png</value>
+  </data>
+  <data name="Msg_SelectVideoAndAudio" xml:space="preserve">
+    <value>请分别选择视频文件与音频文件。</value>
+  </data>
+  <data name="Msg_AddFilesFirst" xml:space="preserve">
+    <value>请先添加要合并的视频文件。</value>
+  </data>
+  <data name="Msg_EmptyTemplate" xml:space="preserve">
+    <value>请填写参数模板。</value>
+  </data>
+  <data name="Msg_NoInputPlaceholder" xml:space="preserve">
+    <value>参数模板中没有 {input} 占位符，请先选择输入文件。</value>
+  </data>
+  <data name="Msg_NoOutputPlaceholder" xml:space="preserve">
+    <value>参数模板中没有 {output} 占位符，请先指定输出文件。</value>
+  </data>
+  <data name="Msg_InputFileMissing" xml:space="preserve">
+    <value>输入文件不存在，请重新选择。</value>
+  </data>
+  <data name="Msg_AddedToQueueFormat" xml:space="preserve">
+    <value>已加入队列：{0}</value>
+  </data>
+  <data name="OutputName_PrefixBox.Header" xml:space="preserve">
+    <value>添加的前缀</value>
+  </data>
+  <data name="OutputName_SuffixBox.Header" xml:space="preserve">
+    <value>添加的后缀</value>
+  </data>
+  <data name="OutputName_CustomBox.Header" xml:space="preserve">
+    <value>自定义文件名</value>
+  </data>
+  <data name="Msg_BuildCommandFailedFormat" xml:space="preserve">
+    <value>（命令生成失败：{0}）</value>
+  </data>
+  <data name="Msg_TemplateSavedFormat" xml:space="preserve">
+    <value>模板「{0}」已保存。</value>
+  </data>
+  <data name="Msg_TemplateDeletedFormat" xml:space="preserve">
+    <value>模板「{0}」已删除。</value>
+  </data>
+  <data name="Msg_SettingsSaved" xml:space="preserve">
+    <value>设置已保存。</value>
+  </data>
+  <data name="Msg_SettingsReset" xml:space="preserve">
+    <value>已恢复默认设置。</value>
+  </data>
+  <data name="Msg_ProbeFailedFormat" xml:space="preserve">
+    <value>无法读取「{0}」的媒体信息，文件可能已损坏或格式不受支持，处理时可能失败。</value>
+  </data>
+  <data name="Error_NoFfmpeg" xml:space="preserve">
+    <value>未配置 ffmpeg.exe，请先打开设置页指定路径。</value>
+  </data>
+  <data name="Error_StartFfmpegFormat" xml:space="preserve">
+    <value>无法启动 ffmpeg：{0}</value>
+  </data>
+  <data name="Error_StartFfmpegFailed" xml:space="preserve">
+    <value>无法启动 ffmpeg（进程创建失败）。</value>
+  </data>
+  <data name="Error_ExitCodeFormat" xml:space="preserve">
+    <value>ffmpeg 退出代码 {0}，请查看日志了解详情。</value>
+  </data>
+
+  <!-- ==================== FFmpeg 定位 ==================== -->
+  <data name="Ffmpeg_NotFound" xml:space="preserve">
+    <value>未在 PATH 或常见安装目录中找到 ffmpeg.exe，请在设置页手动指定。</value>
+  </data>
+  <data name="Ffmpeg_FoundWithoutProbe" xml:space="preserve">
+    <value>已找到 ffmpeg.exe，但未找到 ffprobe.exe（媒体信息探测功能不可用）。</value>
+  </data>
+  <data name="Ffmpeg_FoundBoth" xml:space="preserve">
+    <value>已找到 ffmpeg.exe 与 ffprobe.exe。</value>
+  </data>
+  <data name="Ffmpeg_Ready" xml:space="preserve">
+    <value>FFmpeg 已就绪。</value>
+  </data>
+  <data name="Ffmpeg_NotConfigured" xml:space="preserve">
+    <value>未配置 FFmpeg，请打开设置页指定 ffmpeg.exe 与 ffprobe.exe。</value>
+  </data>
+
+  <!-- ==================== 媒体流类型 ==================== -->
+  <data name="StreamKind_Video" xml:space="preserve">
+    <value>视频</value>
+  </data>
+  <data name="StreamKind_Audio" xml:space="preserve">
+    <value>音频</value>
+  </data>
+  <data name="StreamKind_Subtitle" xml:space="preserve">
+    <value>字幕</value>
+  </data>
+  <data name="StreamKind_Attachment" xml:space="preserve">
+    <value>附件</value>
+  </data>
+  <data name="StreamKind_Data" xml:space="preserve">
+    <value>数据</value>
+  </data>
+  <data name="StreamKind_Unknown" xml:space="preserve">
+    <value>其他</value>
+  </data>
+
+  <!-- ==================== 编码器与容器名称 ==================== -->
+  <data name="Codec_Container_Mp4" xml:space="preserve">
+    <value>MP4</value>
+  </data>
+  <data name="Codec_Container_Mkv" xml:space="preserve">
+    <value>MKV</value>
+  </data>
+  <data name="Codec_Container_Mov" xml:space="preserve">
+    <value>MOV</value>
+  </data>
+  <data name="Codec_Container_Webm" xml:space="preserve">
+    <value>WebM</value>
+  </data>
+  <data name="Codec_Container_Avi" xml:space="preserve">
+    <value>AVI</value>
+  </data>
+  <data name="Codec_Container_Flv" xml:space="preserve">
+    <value>FLV</value>
+  </data>
+  <data name="Codec_Container_Ts" xml:space="preserve">
+    <value>MPEG-TS</value>
+  </data>
+  <data name="Codec_Container_Wmv" xml:space="preserve">
+    <value>WMV</value>
+  </data>
+  <data name="Codec_Container_Gif" xml:space="preserve">
+    <value>GIF 动图</value>
+  </data>
+  <data name="Codec_Container_Mp3" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="Codec_Container_M4a" xml:space="preserve">
+    <value>M4A</value>
+  </data>
+  <data name="Codec_Container_Aac" xml:space="preserve">
+    <value>AAC</value>
+  </data>
+  <data name="Codec_Container_Flac" xml:space="preserve">
+    <value>FLAC</value>
+  </data>
+  <data name="Codec_Container_Wav" xml:space="preserve">
+    <value>WAV</value>
+  </data>
+  <data name="Codec_Container_Ogg" xml:space="preserve">
+    <value>OGG</value>
+  </data>
+  <data name="Codec_Container_Opus" xml:space="preserve">
+    <value>OPUS</value>
+  </data>
+  <data name="Codec_Video_Libx264" xml:space="preserve">
+    <value>H.264 / AVC (x264) *</value>
+  </data>
+  <data name="Codec_Video_Libx265" xml:space="preserve">
+    <value>H.265 / HEVC (x265)</value>
+  </data>
+  <data name="Codec_Video_Vp9" xml:space="preserve">
+    <value>VP9 (libvpx)</value>
+  </data>
+  <data name="Codec_Video_Vp8" xml:space="preserve">
+    <value>VP8 (libvpx)</value>
+  </data>
+  <data name="Codec_Video_SvtAv1" xml:space="preserve">
+    <value>AV1 (SVT-AV1)</value>
+  </data>
+  <data name="Codec_Video_AomAv1" xml:space="preserve">
+    <value>AV1 (libaom)</value>
+  </data>
+  <data name="Codec_Video_Mpeg4" xml:space="preserve">
+    <value>MPEG-4 Part 2</value>
+  </data>
+  <data name="Codec_Video_Mpeg2" xml:space="preserve">
+    <value>MPEG-2</value>
+  </data>
+  <data name="Codec_Video_Wmv2" xml:space="preserve">
+    <value>Windows Media Video 9</value>
+  </data>
+  <data name="Codec_Video_Gif" xml:space="preserve">
+    <value>GIF</value>
+  </data>
+  <data name="Codec_Video_Png" xml:space="preserve">
+    <value>PNG 序列</value>
+  </data>
+  <data name="Codec_Video_Mjpeg" xml:space="preserve">
+    <value>MJPEG</value>
+  </data>
+  <data name="Codec_Audio_Aac" xml:space="preserve">
+    <value>AAC *</value>
+  </data>
+  <data name="Codec_Audio_Mp3" xml:space="preserve">
+    <value>MP3 (LAME)</value>
+  </data>
+  <data name="Codec_Audio_Opus" xml:space="preserve">
+    <value>Opus</value>
+  </data>
+  <data name="Codec_Audio_Vorbis" xml:space="preserve">
+    <value>Vorbis</value>
+  </data>
+  <data name="Codec_Audio_Flac" xml:space="preserve">
+    <value>FLAC（无损）</value>
+  </data>
+  <data name="Codec_Audio_Alac" xml:space="preserve">
+    <value>ALAC（无损）</value>
+  </data>
+  <data name="Codec_Audio_Pcm16" xml:space="preserve">
+    <value>PCM 16 位（无损）</value>
+  </data>
+  <data name="Codec_Audio_Wma" xml:space="preserve">
+    <value>Windows Media Audio</value>
+  </data>
+  <data name="Codec_Audio_Ac3" xml:space="preserve">
+    <value>AC-3</value>
+  </data>
+  <data name="Codec_Audio_Eac3" xml:space="preserve">
+    <value>E-AC-3</value>
+  </data>
+  <data name="Codec_Copy" xml:space="preserve">
+    <value>直接复制（不重新编码）</value>
+  </data>
+  <data name="Codec_Subtitle_Copy" xml:space="preserve">
+    <value>直接复制（保持原格式）</value>
+  </data>
+  <data name="Codec_Subtitle_MovText" xml:space="preserve">
+    <value>MOV/MP4 文本字幕</value>
+  </data>
+  <data name="Codec_Tune_None" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="Codec_Tune_Film" xml:space="preserve">
+    <value>film（电影/实拍）</value>
+  </data>
+  <data name="Codec_Tune_Animation" xml:space="preserve">
+    <value>animation（动画）</value>
+  </data>
+  <data name="Codec_Tune_Grain" xml:space="preserve">
+    <value>grain（保留胶片颗粒）</value>
+  </data>
+  <data name="Codec_Tune_StillImage" xml:space="preserve">
+    <value>stillimage（静态图像）</value>
+  </data>
+  <data name="Codec_Tune_FastDecode" xml:space="preserve">
+    <value>fastdecode（快速解码）</value>
+  </data>
+  <data name="Codec_Tune_ZeroLatency" xml:space="preserve">
+    <value>zerolatency（零延迟）</value>
+  </data>
+  <data name="Codec_PixFmt_Auto" xml:space="preserve">
+    <value>自动（编码器默认）</value>
+  </data>
+  <data name="Codec_PixFmt_Yuv420p" xml:space="preserve">
+    <value>yuv420p（兼容性最好）</value>
+  </data>
+  <data name="Codec_PixFmt_Yuv420p10" xml:space="preserve">
+    <value>yuv420p10le（10 位）</value>
+  </data>
+  <data name="Codec_PixFmt_Yuv422p" xml:space="preserve">
+    <value>yuv422p</value>
+  </data>
+  <data name="Codec_PixFmt_Yuv422p10" xml:space="preserve">
+    <value>yuv422p10le</value>
+  </data>
+  <data name="Codec_PixFmt_Yuv444p" xml:space="preserve">
+    <value>yuv444p</value>
+  </data>
+  <data name="Codec_PixFmt_Nv12" xml:space="preserve">
+    <value>nv12（硬件编码常用）</value>
+  </data>
+  <data name="Codec_PixFmt_Rgb24" xml:space="preserve">
+    <value>rgb24</value>
+  </data>
+  <data name="Codec_Scale_Default" xml:space="preserve">
+    <value>默认（bicubic）</value>
+  </data>
+  <data name="Codec_Scale_Lanczos" xml:space="preserve">
+    <value>lanczos（锐利，推荐放大）</value>
+  </data>
+  <data name="Codec_Scale_Bicubic" xml:space="preserve">
+    <value>bicubic</value>
+  </data>
+  <data name="Codec_Scale_Bilinear" xml:space="preserve">
+    <value>bilinear（快速）</value>
+  </data>
+  <data name="Codec_Scale_Spline" xml:space="preserve">
+    <value>spline（平滑）</value>
+  </data>
+  <data name="Codec_Scale_Area" xml:space="preserve">
+    <value>area（推荐缩小）</value>
+  </data>
+  <data name="Resolution_Original" xml:space="preserve">
+    <value>原始尺寸</value>
+  </data>
+  <data name="Resolution_4K" xml:space="preserve">
+    <value>3840×2160 (4K)</value>
+  </data>
+  <data name="Resolution_2K" xml:space="preserve">
+    <value>2560×1440 (2K)</value>
+  </data>
+  <data name="Resolution_1080p" xml:space="preserve">
+    <value>1920×1080 (1080p)</value>
+  </data>
+  <data name="Resolution_720p" xml:space="preserve">
+    <value>1280×720 (720p)</value>
+  </data>
+  <data name="Resolution_480p" xml:space="preserve">
+    <value>854×480 (480p)</value>
+  </data>
+  <data name="Resolution_360p" xml:space="preserve">
+    <value>640×360 (360p)</value>
+  </data>
+  <data name="Resolution_240p" xml:space="preserve">
+    <value>426×240 (240p)</value>
+  </data>
+  <data name="FrameRate_Original" xml:space="preserve">
+    <value>原始帧率</value>
+  </data>
+  <data name="FrameRate_23976" xml:space="preserve">
+    <value>23.976 fps</value>
+  </data>
+  <data name="FrameRate_24" xml:space="preserve">
+    <value>24 fps</value>
+  </data>
+  <data name="FrameRate_25" xml:space="preserve">
+    <value>25 fps</value>
+  </data>
+  <data name="FrameRate_2997" xml:space="preserve">
+    <value>29.97 fps</value>
+  </data>
+  <data name="FrameRate_30" xml:space="preserve">
+    <value>30 fps</value>
+  </data>
+  <data name="FrameRate_50" xml:space="preserve">
+    <value>50 fps</value>
+  </data>
+  <data name="FrameRate_5994" xml:space="preserve">
+    <value>59.94 fps</value>
+  </data>
+  <data name="FrameRate_60" xml:space="preserve">
+    <value>60 fps</value>
+  </data>
+  <data name="SampleRate_Original" xml:space="preserve">
+    <value>原始采样率</value>
+  </data>
+  <data name="SampleRate_8000" xml:space="preserve">
+    <value>8000 Hz</value>
+  </data>
+  <data name="SampleRate_16000" xml:space="preserve">
+    <value>16000 Hz</value>
+  </data>
+  <data name="SampleRate_22050" xml:space="preserve">
+    <value>22050 Hz</value>
+  </data>
+  <data name="SampleRate_32000" xml:space="preserve">
+    <value>32000 Hz</value>
+  </data>
+  <data name="SampleRate_44100" xml:space="preserve">
+    <value>44100 Hz</value>
+  </data>
+  <data name="SampleRate_48000" xml:space="preserve">
+    <value>48000 Hz</value>
+  </data>
+  <data name="SampleRate_96000" xml:space="preserve">
+    <value>96000 Hz</value>
+  </data>
+  <data name="Channel_Original" xml:space="preserve">
+    <value>原始声道</value>
+  </data>
+  <data name="Channel_Mono" xml:space="preserve">
+    <value>单声道 (1.0)</value>
+  </data>
+  <data name="Channel_Stereo" xml:space="preserve">
+    <value>立体声 (2.0)</value>
+  </data>
+  <data name="Channel_51" xml:space="preserve">
+    <value>5.1 环绕</value>
+  </data>
+  <data name="Channel_71" xml:space="preserve">
+    <value>7.1 环绕</value>
+  </data>
+  <data name="HwAccel_None" xml:space="preserve">
+    <value>不启用（软件编码）</value>
+  </data>
+  <data name="HwAccel_Nvenc" xml:space="preserve">
+    <value>NVIDIA NVENC</value>
+  </data>
+  <data name="HwAccel_Qsv" xml:space="preserve">
+    <value>Intel Quick Sync</value>
+  </data>
+  <data name="HwAccel_Amf" xml:space="preserve">
+    <value>AMD AMF</value>
+  </data>
+  <data name="HwAccel_DecodeOnly" xml:space="preserve">
+    <value>仅硬件解码</value>
+  </data>
+
+  <!-- ==================== 内置参数模板 ==================== -->
+  <data name="Tpl_H265Archive_Name" xml:space="preserve">
+    <value>H.265 高质量归档</value>
+  </data>
+  <data name="Tpl_H265Archive_Desc" xml:space="preserve">
+    <value>用 libx265 以 CRF 20 慢速编码，体积比 H.264 小约 40%</value>
+  </data>
+  <data name="Tpl_ToGif_Name" xml:space="preserve">
+    <value>转换为 GIF 动图</value>
+  </data>
+  <data name="Tpl_ToGif_Desc" xml:space="preserve">
+    <value>生成高质量调色板 GIF，适合短片段循环播放</value>
+  </data>
+  <data name="Tpl_TextWatermark_Name" xml:space="preserve">
+    <value>添加文字水印</value>
+  </data>
+  <data name="Tpl_TextWatermark_Desc" xml:space="preserve">
+    <value>在左上角绘制文字（drawtext 滤镜）</value>
+  </data>
+  <data name="Tpl_DoubleSpeed_Name" xml:space="preserve">
+    <value>2 倍速播放</value>
+  </data>
+  <data name="Tpl_DoubleSpeed_Desc" xml:space="preserve">
+    <value>视频 setpts + 音频 atempo 同步加速</value>
+  </data>
+  <data name="Tpl_Reverse_Name" xml:space="preserve">
+    <value>视频倒放</value>
+  </data>
+  <data name="Tpl_Reverse_Desc" xml:space="preserve">
+    <value>音视频同时倒放（需完整解码到内存，适合短视频）</value>
+  </data>
+  <data name="Tpl_Denoise_Name" xml:space="preserve">
+    <value>音频降噪</value>
+  </data>
+  <data name="Tpl_Denoise_Desc" xml:space="preserve">
+    <value>afftdn 自适应降噪，视频流直接复制</value>
+  </data>
+  <data name="Tpl_Loudnorm_Name" xml:space="preserve">
+    <value>音频响度标准化</value>
+  </data>
+  <data name="Tpl_Loudnorm_Desc" xml:space="preserve">
+    <value>按 EBU R128 标准把响度归一到 -16 LUFS</value>
+  </data>
+  <data name="Tpl_ExtractMp3_Name" xml:space="preserve">
+    <value>提取音频为 MP3</value>
+  </data>
+  <data name="Tpl_ExtractMp3_Desc" xml:space="preserve">
+    <value>去掉视频，音频转 MP3 320 kbps</value>
+  </data>
+  <data name="Tpl_Delogo_Name" xml:space="preserve">
+    <value>去除水印（delogo）</value>
+  </data>
+  <data name="Tpl_Delogo_Desc" xml:space="preserve">
+    <value>用 delogo 插值覆盖指定矩形区域，需自行修改坐标</value>
+  </data>
+  <data name="Tpl_CropBorders_Name" xml:space="preserve">
+    <value>裁剪黑边</value>
+  </data>
+  <data name="Tpl_CropBorders_Desc" xml:space="preserve">
+    <value>四周各裁掉 10 像素，可按实际黑边修改数值</value>
+  </data>
+  <data name="Tpl_ImageToVideo_Name" xml:space="preserve">
+    <value>图片合成 10 秒视频</value>
+  </data>
+  <data name="Tpl_ImageToVideo_Desc" xml:space="preserve">
+    <value>单张图片循环合成为 10 秒 H.264 视频</value>
+  </data>
+  <data name="Tpl_VerticalBlur_Name" xml:space="preserve">
+    <value>视频转竖屏（模糊填充）</value>
+  </data>
+  <data name="Tpl_VerticalBlur_Desc" xml:space="preserve">
+    <value>9:16 竖屏，两侧用模糊画面填充</value>
+  </data>
+  <data name="Tpl_Nvenc_Name" xml:space="preserve">
+    <value>H.264 硬件编码（NVENC）</value>
+  </data>
+  <data name="Tpl_Nvenc_Desc" xml:space="preserve">
+    <value>使用 NVIDIA 显卡硬件编码，速度远快于软件编码</value>
+  </data>
+  <data name="Tpl_SpriteSheet_Name" xml:space="preserve">
+    <value>生成雪碧图</value>
+  </data>
+  <data name="Tpl_SpriteSheet_Desc" xml:space="preserve">
+    <value>每 10 秒取一帧，拼成 5×5 缩略图预览图</value>
+  </data>
+  <data name="Tpl_Remux_Name" xml:space="preserve">
+    <value>仅复制流（快速换容器）</value>
+  </data>
+  <data name="Tpl_Remux_Desc" xml:space="preserve">
+    <value>不重新编码，仅更换封装格式</value>
+  </data>
+
+  <!-- ==================== 预设功能 ==================== -->
+  <data name="NavPresets.Content" xml:space="preserve">
+    <value>预设</value>
+  </data>
+  <data name="PresetPageTitle.Text" xml:space="preserve">
+    <value>预设</value>
+  </data>
+  <data name="PresetPageSubtitle.Text" xml:space="preserve">
+    <value>点按某个预设即可直接处理文件；视频类先选输入再选输出，图片类先选文件再选输出文件夹。</value>
+  </data>
+  <data name="Preset_SaveHint" xml:space="preserve">
+    <value>还没有保存任何预设。在任意功能页设置好参数后，点击窗口右上角的「保存预设」即可在此处复用。</value>
+  </data>
+  <data name="Preset_RunCancelled" xml:space="preserve">
+    <value>已取消：未选择文件位置。</value>
+  </data>
+  <data name="Preset_LoadFailed" xml:space="preserve">
+    <value>预设参数已损坏，无法加载。</value>
+  </data>
+  <data name="Preset_EnqueuedFormat" xml:space="preserve">
+    <value>已按预设「{0}」加入处理队列。</value>
+  </data>
+  <data name="Preset_ImageStartedFormat" xml:space="preserve">
+    <value>已按预设「{0}」处理完成，成功 {1}/{2} 个文件。</value>
+  </data>
+  <data name="Preset_DeletedFormat" xml:space="preserve">
+    <value>已删除预设「{0}」。</value>
+  </data>
+  <data name="Preset_SaveTitle" xml:space="preserve">
+    <value>保存预设</value>
+  </data>
+  <data name="Preset_SavePromptFormat" xml:space="preserve">
+    <value>将当前「{0}」页面的参数保存为预设：</value>
+  </data>
+  <data name="Preset_SavedFormat" xml:space="preserve">
+    <value>预设「{0}」已保存，可在左侧「预设」栏点击直接处理文件。</value>
+  </data>
+  <data name="Preset_NotSupported" xml:space="preserve">
+    <value>当前页面不支持保存预设。请在转码、剪辑、图片转换等功能页设置参数后再保存。</value>
+  </data>
+  <data name="Preset_NoPage" xml:space="preserve">
+    <value>请先打开某个功能页面（如转码、图片转换）并设置好参数。</value>
+  </data>
+
+  <!-- ==================== 文件夹扫描 ==================== -->
+  <data name="Msg_NoVideoInFolderFormat" xml:space="preserve">
+    <value>所选文件夹中没有找到视频文件：{0}</value>
+  </data>
+  <data name="Msg_ScanFolderAddedFormat" xml:space="preserve">
+    <value>已扫描文件夹并向队列添加 {0} 个视频文件：{1}</value>
+  </data>
+
+  <!-- ==================== 输出面板 ==================== -->
+  <data name="Output_Copied" xml:space="preserve">
+    <value>日志已复制到剪贴板。</value>
+  </data>
+  <data name="Output_CopyFailed" xml:space="preserve">
+    <value>复制失败。</value>
+  </data>
+  <data name="OutputErrorsOnlyToggle.Header" xml:space="preserve">
+    <value>仅错误和警告</value>
+  </data>
+  <data name="OutputCopyButton.Content" xml:space="preserve">
+    <value>复制</value>
+  </data>
+</root>

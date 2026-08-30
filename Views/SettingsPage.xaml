@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="FFmpegUI.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:FFmpegUI.Controls"
+    mc:Ignorable="d"
+    NavigationCacheMode="Enabled">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="32,24,32,32" Spacing="16" MaxWidth="1080" HorizontalAlignment="Stretch">
+
+            <TextBlock x:Uid="SettingsPageTitle" Text="设置" Style="{StaticResource PageTitleStyle}"/>
+            <TextBlock x:Uid="SettingsPageSubtitle"
+                       Text="配置 FFmpeg 可执行文件位置、输出目录、任务并发数与界面外观。"
+                       Style="{StaticResource PageSubtitleStyle}"/>
+
+            <!-- ===== FFmpeg ===== -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <TextBlock x:Uid="SettingsFfmpegSectionTitle" Text="FFmpeg" Style="{StaticResource CardTitleStyle}"/>
+
+                    <InfoBar IsOpen="{x:Bind ViewModel.ShowFfmpegStatus, Mode=OneWay}"
+                             Message="{x:Bind ViewModel.FfmpegStatusText, Mode=OneWay}"
+                             Severity="{x:Bind ViewModel.FfmpegStatusSeverity, Mode=OneWay}"
+                             IsClosable="True"
+                             Margin="0,0,0,12"/>
+
+                    <controls:SettingRow x:Uid="SettingsRowFfmpegPath"
+                                         Title="ffmpeg.exe"
+                                         Description="用于执行转码与处理任务的可执行文件">
+                        <controls:SettingRow.SettingContent>
+                            <Grid ColumnSpacing="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Uid="SettingsFfmpegPathBox"
+                                         Text="{x:Bind ViewModel.FfmpegPath, Mode=TwoWay}"
+                                         PlaceholderText="例如 C:\ffmpeg\bin\ffmpeg.exe" MinWidth="360"/>
+                                <Button Grid.Column="1"
+                                        Style="{StaticResource IconButtonStyle}"
+                                        AutomationProperties.Name="{Binding Text, ElementName=BrowseFfmpegButtonText}"
+                                        Command="{x:Bind ViewModel.BrowseFfmpegCommand}">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon Glyph="&#xE8E5;" FontSize="16"/>
+                                        <TextBlock x:Name="BrowseFfmpegButtonText" x:Uid="BrowseFfmpegButton" Text="浏览"/>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow x:Uid="SettingsRowFfprobePath"
+                                         Title="ffprobe.exe"
+                                         Description="用于读取媒体文件信息，通常与 ffmpeg 在同一目录">
+                        <controls:SettingRow.SettingContent>
+                            <Grid ColumnSpacing="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Uid="SettingsFfprobePathBox"
+                                         Text="{x:Bind ViewModel.FfprobePath, Mode=TwoWay}"
+                                         PlaceholderText="例如 C:\ffmpeg\bin\ffprobe.exe" MinWidth="360"/>
+                                <Button Grid.Column="1"
+                                        Style="{StaticResource IconButtonStyle}"
+                                        AutomationProperties.Name="{Binding Text, ElementName=BrowseFfprobeButtonText}"
+                                        Command="{x:Bind ViewModel.BrowseFfprobeCommand}">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon Glyph="&#xE8E5;" FontSize="16"/>
+                                        <TextBlock x:Name="BrowseFfprobeButtonText" x:Uid="BrowseFfprobeButton" Text="浏览"/>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="ffplay.exe"
+                                         Description="用于播放媒体（播放页）。可选组件——部分 FFmpeg 发行版不含此文件，留空不影响其他功能">
+                        <controls:SettingRow.SettingContent>
+                            <Grid ColumnSpacing="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Text="{x:Bind ViewModel.FfplayPath, Mode=TwoWay}"
+                                         PlaceholderText="例如 C:\ffmpeg\bin\ffplay.exe" MinWidth="360"/>
+                                <Button Grid.Column="1"
+                                        Style="{StaticResource IconButtonStyle}"
+                                        AutomationProperties.Name="浏览 ffplay"
+                                        Command="{x:Bind ViewModel.BrowseFfplayCommand}">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon Glyph="&#xE8E5;" FontSize="16"/>
+                                        <TextBlock Text="浏览"/>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,8,0,0">
+                        <Button Style="{StaticResource IconButtonStyle}"
+                                AutomationProperties.Name="{Binding Text, ElementName=AutoDetectButtonText}"
+                                Command="{x:Bind ViewModel.AutoDetectCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon Glyph="&#xE721;" FontSize="16"/>
+                                <TextBlock x:Name="AutoDetectButtonText" x:Uid="AutoDetectButton" Text="自动探测"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+                    <TextBlock x:Uid="SettingsAutoDetectHint"
+                               Text="自动探测会依次检查 PATH 环境变量、常见安装目录（含 WinGet 安装位置）与应用目录。"
+                               Style="{StaticResource FieldHintStyle}"/>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 输出与任务 ===== -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <TextBlock x:Uid="SettingsOutputSectionTitle" Text="输出与任务" Style="{StaticResource CardTitleStyle}"/>
+
+                    <controls:SettingRow x:Uid="SettingsRowOutputDirectory"
+                                         Title="默认输出目录"
+                                         Description="留空表示输出到与源文件相同的目录">
+                        <controls:SettingRow.SettingContent>
+                            <Grid ColumnSpacing="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Uid="SettingsOutputDirBox"
+                                         Text="{x:Bind ViewModel.OutputDirectory, Mode=TwoWay}"
+                                         PlaceholderText="留空则使用源文件所在目录" MinWidth="360"/>
+                                <Button Grid.Column="1"
+                                        Style="{StaticResource IconButtonStyle}"
+                                        AutomationProperties.Name="{Binding Text, ElementName=BrowseOutputButtonText}"
+                                        Command="{x:Bind ViewModel.BrowseOutputDirectoryCommand}">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon Glyph="&#xE8B7;" FontSize="16"/>
+                                        <TextBlock x:Name="BrowseOutputButtonText" x:Uid="BrowseOutputButton" Text="浏览"/>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow x:Uid="SettingsRowParallelTasks"
+                                         Title="同时执行的任务数"
+                                         Description="{x:Bind ViewModel.ProcessorInfo, Mode=OneWay}">
+                        <controls:SettingRow.SettingContent>
+                            <NumberBox Value="{x:Bind ViewModel.MaxParallelTasks, Mode=TwoWay}"
+                                       Minimum="1" Maximum="16" SmallChange="1"
+                                       SpinButtonPlacementMode="Compact" ValidationMode="InvalidInputOverwritten" MinWidth="160"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow x:Uid="SettingsRowOverwrite" Title="覆盖已存在的输出文件">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.OverwriteOutput, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow x:Uid="SettingsRowAutoStart" Title="加入队列后自动开始">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.AutoStartQueue, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow x:Uid="SettingsRowNotify" Title="任务完成后显示提示">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.NotifyOnCompletion, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow x:Uid="SettingsRowAutoDetect" Title="启动时自动探测 FFmpeg">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.AutoDetectFfmpegOnStartup, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 外观 ===== -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <TextBlock x:Uid="SettingsAppearanceSectionTitle" Text="外观" Style="{StaticResource CardTitleStyle}"/>
+
+                    <controls:SettingRow x:Uid="SettingsRowTheme" Title="应用主题" Description="跟随系统会随 Windows 主题自动切换">
+                        <controls:SettingRow.SettingContent>
+                            <ComboBox x:Name="ThemeComboBox"
+                                      ItemsSource="{x:Bind ViewModel.Themes}"
+                                      DisplayMemberPath="Key"
+                                      SelectedIndex="{x:Bind ViewModel.ThemeIndex, Mode=TwoWay}"
+                                      MinWidth="240"
+                                      SelectionChanged="ThemeComboBox_SelectionChanged"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow x:Uid="SettingsRowBackdrop"
+                                         Title="窗口背景材质"
+                                         Description="云母 (Mica) 为 Windows 11 推荐材质，Windows 10 上自动降级为纯色">
+                        <controls:SettingRow.SettingContent>
+                            <ComboBox x:Name="BackdropComboBox"
+                                      ItemsSource="{x:Bind ViewModel.Backdrops}"
+                                      DisplayMemberPath="Key"
+                                      SelectedIndex="{x:Bind ViewModel.BackdropIndex, Mode=TwoWay}"
+                                      MinWidth="240"
+                                      SelectionChanged="BackdropComboBox_SelectionChanged"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 操作 ===== -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <Button Style="{StaticResource AccentIconButtonStyle}"
+                            AutomationProperties.Name="{Binding Text, ElementName=SaveSettingsButtonText}"
+                            Command="{x:Bind ViewModel.SaveCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE74E;" FontSize="16"/>
+                            <TextBlock x:Name="SaveSettingsButtonText" x:Uid="SaveSettingsButton" Text="保存设置"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource IconButtonStyle}"
+                            AutomationProperties.Name="{Binding Text, ElementName=ResetSettingsButtonText}"
+                            Command="{x:Bind ViewModel.ResetCommand}">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon Glyph="&#xE777;" FontSize="16"/>
+                            <TextBlock x:Name="ResetSettingsButtonText" x:Uid="ResetSettingsButton" Text="恢复默认"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 关于 ===== -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <TextBlock x:Uid="SettingsAboutSectionTitle" Text="关于" Style="{StaticResource CardTitleStyle}"/>
+
+                    <!-- 版本与数据目录是启动后不变的静态信息，用一次性绑定即可：
+                         页面自身不实现 INotifyPropertyChanged，OneWay 只会收到 WMC1506 警告 -->
+                    <TextBlock Text="{x:Bind AppDescription, Mode=OneTime}"
+                               Style="{StaticResource BodyTextBlockStyle}"
+                               TextWrapping="Wrap"/>
+                    <TextBlock Text="{x:Bind DataDirectoryText, Mode=OneTime}"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               Margin="0,8,0,0"/>
+                    <TextBlock x:Uid="SettingsAboutDisclaimer"
+                               Text="本应用仅为 FFmpeg 的图形界面，所有处理均由 FFmpeg 完成。"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                               Margin="0,4,0,0"/>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="FFmpegUI.Controls.OutputNameControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:FFmpegUI.Models"
+    mc:Ignorable="d">
+
+    <StackPanel Spacing="8">
+        <ComboBox x:Name="ModeCombo"
+                  MinWidth="200"
+                  SelectionChanged="ModeCombo_SelectionChanged">
+            <x:String>原文件名</x:String>
+            <x:String>添加前缀</x:String>
+            <x:String>添加后缀</x:String>
+            <x:String>自定义</x:String>
+        </ComboBox>
+
+        <TextBox x:Name="PrefixBox"
+                 x:Uid="OutputName_PrefixBox"
+                 Header="前缀"
+                 PlaceholderText="例如 converted_"
+                 Text="{x:Bind Options.Prefix, Mode=TwoWay}"
+                 Visibility="Collapsed"/>
+
+        <TextBox x:Name="SuffixBox"
+                 x:Uid="OutputName_SuffixBox"
+                 Header="后缀"
+                 PlaceholderText="例如 _out"
+                 Text="{x:Bind Options.Suffix, Mode=TwoWay}"
+                 Visibility="Collapsed"/>
+
+        <TextBox x:Name="CustomBox"
+                 x:Uid="OutputName_CustomBox"
+                 Header="自定义文件名"
+                 PlaceholderText="例如 {源文件名}_压缩"
+                 Text="{x:Bind Options.CustomName, Mode=TwoWay}"
+                 Visibility="Collapsed"/>
+    </StackPanel>
+</UserControl>

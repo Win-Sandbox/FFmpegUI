@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="FFmpegUI.Views.ImageConvertPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:FFmpegUI.Controls"
+    xmlns:viewmodels="using:FFmpegUI.ViewModels"
+    mc:Ignorable="d"
+    NavigationCacheMode="Enabled">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="32,24,32,32" Spacing="16" MaxWidth="1080" HorizontalAlignment="Stretch">
+
+            <TextBlock Text="图片转换" Style="{StaticResource PageTitleStyle}"/>
+            <TextBlock Text="用 ffmpeg 在常见的位图格式之间批量转换，并可调整尺寸与画面。"
+                       Style="{StaticResource PageSubtitleStyle}"/>
+
+            <InfoBar IsOpen="{x:Bind ViewModel.ShowStatus, Mode=OneWay}"
+                     Message="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
+                     Severity="{x:Bind ViewModel.StatusSeverity, Mode=OneWay}"
+                     IsClosable="True"/>
+
+            <!-- ===== 文件列表 ===== -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="待转换文件" Style="{StaticResource CardTitleStyle}"/>
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                            <Button Style="{StaticResource IconButtonStyle}"
+                                    AutomationProperties.Name="添加文件"
+                                    Command="{x:Bind ViewModel.AddFilesCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <FontIcon Glyph="&#xE710;" FontSize="16"/>
+                                    <TextBlock Text="添加文件"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Style="{StaticResource IconButtonStyle}"
+                                    AutomationProperties.Name="清空列表"
+                                    Command="{x:Bind ViewModel.ClearFilesCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <FontIcon Glyph="&#xE74D;" FontSize="16"/>
+                                    <TextBlock Text="清空"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- 空列表提示 -->
+                    <StackPanel Visibility="{x:Bind ViewModel.HasFiles, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}"
+                                Spacing="12" Margin="0,8">
+                        <FontIcon Glyph="&#xEB9F;" FontSize="40"
+                                  Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                        <TextBlock Text="尚未添加文件"
+                                   HorizontalAlignment="Center"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                        <TextBlock Text="点击「添加文件」选择一张或多张图片，支持 PNG、JPEG、BMP、TIFF、WebP、GIF 等格式。"
+                                   HorizontalAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   MaxWidth="520"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                    </StackPanel>
+
+                    <ListView ItemsSource="{x:Bind ViewModel.Files, Mode=OneWay}"
+                              SelectionMode="None"
+                              MaxHeight="260"
+                              Visibility="{x:Bind ViewModel.HasFiles, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="viewmodels:ImageItem">
+                                <Grid ColumnSpacing="12" Padding="4,6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- 状态图标：完成为对勾，失败为红色叉号，其余为文件图标。
+                                         不带 Path 的 x:Bind 会把整个 ImageItem 传给转换器。 -->
+                                    <FontIcon Grid.Column="0"
+                                              Glyph="{x:Bind Converter={StaticResource ImageItemToGlyphConverter}}"
+                                              Foreground="{x:Bind Failed, Mode=OneWay, Converter={StaticResource BoolToErrorBrushConverter}}"
+                                              FontSize="16"
+                                              VerticalAlignment="Center"/>
+
+                                    <TextBlock Grid.Column="1"
+                                               Text="{x:Bind FileName, Mode=OneWay}"
+                                               VerticalAlignment="Center"
+                                               TextTrimming="CharacterEllipsis"/>
+
+                                    <TextBlock Grid.Column="2"
+                                               Text="{x:Bind Status, Mode=OneWay}"
+                                               VerticalAlignment="Center"
+                                               TextTrimming="CharacterEllipsis"
+                                               MaxWidth="360"
+                                               Style="{StaticResource CaptionTextBlockStyle}"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <!-- 转换进度 -->
+                    <StackPanel Spacing="8" Margin="0,12,0,0"
+                                Visibility="{x:Bind ViewModel.IsConverting, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <ProgressBar Value="{x:Bind ViewModel.Progress, Mode=OneWay}"
+                                     Maximum="100"
+                                     IsIndeterminate="False"/>
+                        <TextBlock Text="{x:Bind ViewModel.ProgressText, Mode=OneWay}"
+                                   Style="{StaticResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 输出设置 ===== -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <TextBlock Text="输出设置" Style="{StaticResource CardTitleStyle}"/>
+
+                    <controls:SettingRow Title="目标格式"
+                                         Description="仅显示当前 ffmpeg 支持的格式">
+                        <controls:SettingRow.SettingContent>
+                            <ComboBox ItemsSource="{x:Bind ViewModel.AvailableFormats, Mode=OneWay}"
+                                      DisplayMemberPath="DisplayName"
+                                      SelectedIndex="{x:Bind ViewModel.FormatIndex, Mode=TwoWay}"
+                                      MinWidth="280"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="输出目录"
+                                         Description="留空则保存到源文件所在目录">
+                        <controls:SettingRow.SettingContent>
+                            <Grid ColumnSpacing="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Text="{x:Bind ViewModel.OutputDirectory, Mode=TwoWay}"
+                                         PlaceholderText="与源文件相同目录"
+                                         MinWidth="320"/>
+                                <Button Grid.Column="1"
+                                        Style="{StaticResource IconButtonStyle}"
+                                        AutomationProperties.Name="选择目录"
+                                        Command="{x:Bind ViewModel.PickOutputDirectoryCommand}">
+                                    <FontIcon Glyph="&#xE8E5;" FontSize="16"/>
+                                </Button>
+                            </Grid>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:OutputNameControl OutputNameOptions="{x:Bind ViewModel.OutputNameOptions}"
+                                                 Margin="0,4"/>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 质量与尺寸 ===== -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <TextBlock Text="质量与尺寸" Style="{StaticResource CardTitleStyle}"/>
+
+                    <controls:SettingRow Title="质量"
+                                         Description="{x:Bind ViewModel.QualityHint, Mode=OneWay}"
+                                         Visibility="{x:Bind ViewModel.ShowQuality, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <controls:SettingRow.SettingContent>
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <Slider Value="{x:Bind ViewModel.Quality, Mode=TwoWay}"
+                                        Minimum="{x:Bind ViewModel.QualityMinimum, Mode=OneWay}"
+                                        Maximum="{x:Bind ViewModel.QualityMaximum, Mode=OneWay}"
+                                        StepFrequency="1"
+                                        Width="200"
+                                        VerticalAlignment="Center"/>
+                                <TextBlock Text="{x:Bind ViewModel.Quality, Mode=OneWay, Converter={StaticResource NumberToStringConverter}, ConverterParameter='0'}"
+                                           Width="40"
+                                           VerticalAlignment="Center"
+                                           Style="{StaticResource CaptionTextBlockStyle}"/>
+                            </StackPanel>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="尺寸调整"
+                                         Description="调整输出图片的像素尺寸">
+                        <controls:SettingRow.SettingContent>
+                            <ComboBox ItemsSource="{x:Bind ViewModel.ResizeModes, Mode=OneWay}"
+                                      DisplayMemberPath="Key"
+                                      SelectedIndex="{x:Bind ViewModel.ResizeModeIndex, Mode=TwoWay}"
+                                      MinWidth="220"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="宽度"
+                                         Description="像素；按宽度模式时高度自动计算"
+                                         Visibility="{x:Bind ViewModel.ShowWidthInput, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <controls:SettingRow.SettingContent>
+                            <NumberBox Value="{x:Bind ViewModel.Width, Mode=TwoWay}"
+                                       Minimum="0" Maximum="16384" SmallChange="80"
+                                       SpinButtonPlacementMode="Compact"
+                                       ValidationMode="InvalidInputOverwritten" MinWidth="160"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="高度"
+                                         Description="像素；按高度模式时宽度自动计算"
+                                         Visibility="{x:Bind ViewModel.ShowHeightInput, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <controls:SettingRow.SettingContent>
+                            <NumberBox Value="{x:Bind ViewModel.Height, Mode=TwoWay}"
+                                       Minimum="0" Maximum="16384" SmallChange="60"
+                                       SpinButtonPlacementMode="Compact"
+                                       ValidationMode="InvalidInputOverwritten" MinWidth="160"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="允许放大"
+                                         Description="关闭时小图不会被拉伸放大"
+                                         Visibility="{x:Bind ViewModel.ShowWidthInput, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.AllowUpscale, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 画面调整 ===== -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <TextBlock Text="画面调整" Style="{StaticResource CardTitleStyle}"/>
+
+                    <controls:SettingRow Title="旋转">
+                        <controls:SettingRow.SettingContent>
+                            <ComboBox ItemsSource="{x:Bind ViewModel.Rotations, Mode=OneWay}"
+                                      DisplayMemberPath="Key"
+                                      SelectedIndex="{x:Bind ViewModel.RotationIndex, Mode=TwoWay}"
+                                      MinWidth="160"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="水平翻转">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.FlipHorizontal, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="垂直翻转">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.FlipVertical, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="转为黑白"
+                                         Description="灰度化输出">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.Grayscale, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 命令与执行 ===== -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <TextBlock Text="命令" Style="{StaticResource CardTitleStyle}"/>
+
+                    <TextBox Text="{x:Bind ViewModel.CommandPreview, Mode=OneWay}"
+                             IsReadOnly="True"
+                             AcceptsReturn="True"
+                             TextWrapping="Wrap"
+                             FontFamily="Consolas"
+                             MaxHeight="120"
+                             Margin="0,0,0,12"
+                             PlaceholderText="添加文件后显示命令预览"/>
+
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button Style="{StaticResource AccentIconButtonStyle}"
+                                AutomationProperties.Name="开始转换"
+                                Command="{x:Bind ViewModel.ConvertCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon Glyph="&#xE8FB;" FontSize="16"/>
+                                <TextBlock Text="开始转换"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource IconButtonStyle}"
+                                AutomationProperties.Name="复制命令"
+                                Command="{x:Bind ViewModel.CopyCommandCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon Glyph="&#xE8C8;" FontSize="16"/>
+                                <TextBlock Text="复制命令"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+                    <InfoBar IsOpen="{x:Bind ViewModel.LastAddedVisible, Mode=OneWay}"
+                             Message="{x:Bind ViewModel.LastAddedMessage, Mode=OneWay}"
+                             Severity="Success"
+                             Margin="0,12,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 格式支持说明 ===== -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <TextBlock Text="格式支持说明" Style="{StaticResource CardTitleStyle}"/>
+                    <TextBlock TextWrapping="Wrap"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                        <Run Text="ffmpeg 只处理位图，因此本页支持 PNG、JPEG、WebP、GIF、BMP、TIFF 等常见位图格式。"/>
+                        <LineBreak/>
+                        <Run Text="以下格式需要 ffmpeg 编译时启用额外的库，若未启用则无法转换："/>
+                        <LineBreak/>
+                        <Run Text="• HEIC/HEIF：需要 libheif（iPhone 照片格式），多数 Windows 预编译版本未包含。"/>
+                        <LineBreak/>
+                        <Run Text="• 相机 RAW（CR2/NEF/ARW/DNG）：不在 ffmpeg 的能力范围内，需专用库（如 LibRaw）。"/>
+                        <LineBreak/>
+                        <Run Text="• SVG：矢量图形，ffmpeg 不支持。"/>
+                        <LineBreak/>
+                        <Run Text="• PDF：需要 ghostscript。"/>
+                    </TextBlock>
+                    <TextBlock Text="具体是否受支持取决于您配置的 ffmpeg 构建——上方「目标格式」下拉框已按实际能力筛选。"
+                               TextWrapping="Wrap"
+                               Margin="0,8,0,0"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="FFmpegUI.Views.ProbePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:FFmpegUI.Controls"
+    mc:Ignorable="d"
+    NavigationCacheMode="Enabled">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="32,24,32,32" Spacing="16" MaxWidth="1080" HorizontalAlignment="Stretch">
+
+            <TextBlock Text="媒体信息探测（ffprobe）" Style="{StaticResource PageTitleStyle}"/>
+            <TextBlock Text="用 ffprobe 读取媒体文件的容器、流、帧、数据包等信息。下方开关对应 ffprobe 的全部主要选项，未列出的长尾选项可用「自定义参数」直通。"
+                       Style="{StaticResource PageSubtitleStyle}"/>
+
+            <InfoBar IsOpen="{x:Bind ViewModel.ShowStatus, Mode=OneWay}"
+                     Message="{x:Bind ViewModel.StatusMessage, Mode=OneWay}"
+                     Severity="{x:Bind ViewModel.StatusSeverity, Mode=OneWay}"
+                     IsClosable="True"/>
+
+            <!-- ===== 输入文件 ===== -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <TextBlock Text="输入文件" Style="{StaticResource CardTitleStyle}"/>
+
+                    <controls:SettingRow Title="媒体文件" Description="支持本地文件与网络流地址">
+                        <controls:SettingRow.SettingContent>
+                            <Grid ColumnSpacing="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Text="{x:Bind ViewModel.InputPath, Mode=TwoWay}"
+                                         PlaceholderText="选择文件，或直接粘贴路径 / URL"
+                                         MinWidth="360"/>
+                                <Button Grid.Column="1"
+                                        Style="{StaticResource IconButtonStyle}"
+                                        AutomationProperties.Name="浏览"
+                                        Command="{x:Bind ViewModel.PickInputCommand}">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon Glyph="&#xE8E5;" FontSize="16"/>
+                                        <TextBlock Text="浏览"/>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="强制输入格式 (-f)" Description="自动探测失败时才需要指定，如 mov、flv、dshow">
+                        <controls:SettingRow.SettingContent>
+                            <TextBox Text="{x:Bind ViewModel.InputFormat, Mode=TwoWay}"
+                                     PlaceholderText="留空为自动探测" Width="200"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 输出格式 ===== -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <TextBlock Text="输出格式" Style="{StaticResource CardTitleStyle}"/>
+
+                    <controls:SettingRow Title="打印格式 (-print_format)" Description="JSON 便于程序解析，CSV 便于导入表格">
+                        <controls:SettingRow.SettingContent>
+                            <ComboBox ItemsSource="{x:Bind ViewModel.OutputFormats, Mode=OneWay}"
+                                      DisplayMemberPath="Key"
+                                      SelectedIndex="{x:Bind ViewModel.OutputFormatIndex, Mode=TwoWay}"
+                                      MinWidth="260"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="美化数值 (-pretty)" Description="把字节数等显示为易读单位">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.Pretty, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="显示单位 (-unit)">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.Unit, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="SI 前缀 (-prefix)">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.Prefix, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="二进制前缀 (-byte_binary_prefix)" Description="字节值用 KiB / MiB 而非 KB / MB">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.ByteBinaryPrefix, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="六十进制时间 (-sexagesimal)" Description="时间显示为 时:分:秒.毫秒">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.Sexagesimal, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="字节精确 (-bitexact)" Description="去除依赖版本的内容，便于回归对比">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.Bitexact, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 显示内容 ===== -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <TextBlock Text="显示内容" Style="{StaticResource CardTitleStyle}"/>
+
+                    <controls:SettingRow Title="容器信息 (-show_format)">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.ShowFormat, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="流信息 (-show_streams)">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.ShowStreams, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="章节 (-show_chapters)">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.ShowChapters, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="节目 (-show_programs)" Description="MPEG-TS 等多节目流">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.ShowPrograms, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="数据包 (-show_packets)" Description="输出量很大，建议配合 -select_streams 使用">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.ShowPackets, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="帧 (-show_frames)" Description="输出量极大，建议配合 -read_intervals 限制范围">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.ShowFrames, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="数据包负载 (-show_data)" Description="十六进制转储，输出量极大">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.ShowData, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="数据哈希 (-show_data_hash)">
+                        <controls:SettingRow.SettingContent>
+                            <ComboBox ItemsSource="{x:Bind ViewModel.HashAlgorithms, Mode=OneWay}"
+                                      DisplayMemberPath="Key"
+                                      SelectedIndex="{x:Bind ViewModel.HashAlgorithmIndex, Mode=TwoWay}"
+                                      MinWidth="180"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="私有数据 (-show_private_data)" Description="输出编解码器专属的扩展字段">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.ShowPrivateData, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="探测错误 (-show_error)">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.ShowError, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="日志 (-show_log)" Description="把日志一并写入结构化输出（会自动放开日志级别）">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.ShowLog, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 过滤与统计 ===== -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <TextBlock Text="过滤与统计" Style="{StaticResource CardTitleStyle}"/>
+
+                    <controls:SettingRow Title="流选择 (-select_streams)" Description="只处理指定流，可显著减小输出体积">
+                        <controls:SettingRow.SettingContent>
+                            <ComboBox ItemsSource="{x:Bind ViewModel.StreamSelectors, Mode=OneWay}"
+                                      DisplayMemberPath="Key"
+                                      SelectedIndex="{x:Bind ViewModel.StreamSelectorIndex, Mode=TwoWay}"
+                                      MinWidth="240"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="字段过滤 (-show_entries)" Description="精确指定输出字段，优先级高于上方 show 开关">
+                        <controls:SettingRow.SettingContent>
+                            <ComboBox ItemsSource="{x:Bind ViewModel.EntryPresets, Mode=OneWay}"
+                                      DisplayMemberPath="Key"
+                                      SelectedIndex="{x:Bind ViewModel.EntryPresetIndex, Mode=TwoWay}"
+                                      MinWidth="360"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="自定义字段" Description="形如 stream=index,codec_name:format=duration">
+                        <controls:SettingRow.SettingContent>
+                            <TextBox Text="{x:Bind ViewModel.ShowEntriesText, Mode=TwoWay}"
+                                     PlaceholderText="section=field1,field2:section2=field3"
+                                     MinWidth="360"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="读取区间 (-read_intervals)" Description="只读取指定时间范围，如 %+#10 表示开头 10 秒">
+                        <controls:SettingRow.SettingContent>
+                            <TextBox Text="{x:Bind ViewModel.ReadIntervalsText, Mode=TwoWay}"
+                                     PlaceholderText="%+#10 或 10+20" Width="220"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="统计帧数 (-count_frames)" Description="需完整解码视频，耗时较长">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.CountFrames, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="统计包数 (-count_packets)">
+                        <controls:SettingRow.SettingContent>
+                            <ToggleSwitch IsOn="{x:Bind ViewModel.CountPackets, Mode=TwoWay}"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 能力查询 ===== -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <TextBlock Text="能力查询" Style="{StaticResource CardTitleStyle}"/>
+                    <TextBlock Text="查询当前 ffprobe 构建支持的能力，无需选择输入文件。"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               Margin="0,0,0,8"/>
+
+                    <controls:SettingRow Title="查询项目">
+                        <controls:SettingRow.SettingContent>
+                            <Grid ColumnSpacing="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox ItemsSource="{x:Bind ViewModel.CapabilityQueries, Mode=OneWay}"
+                                          DisplayMemberPath="Key"
+                                          SelectedIndex="{x:Bind ViewModel.CapabilityIndex, Mode=TwoWay}"
+                                          MinWidth="280"/>
+                                <Button Grid.Column="1"
+                                        Style="{StaticResource IconButtonStyle}"
+                                        AutomationProperties.Name="查询"
+                                        Command="{x:Bind ViewModel.RunCapabilityCommand}">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon Glyph="&#xE721;" FontSize="16"/>
+                                        <TextBlock Text="查询"/>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 自定义参数 ===== -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <TextBlock Text="自定义参数（覆盖未列出的选项）" Style="{StaticResource CardTitleStyle}"/>
+
+                    <controls:SettingRow Title="全局参数" Description="插入到最前面，如 -report">
+                        <controls:SettingRow.SettingContent>
+                            <TextBox Text="{x:Bind ViewModel.CustomGlobalArguments, Mode=TwoWay}"
+                                     PlaceholderText="留空"
+                                     MinWidth="360"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+
+                    <controls:SettingRow Title="输入参数" Description="插到 -i 之前，如 -analyzeduration">
+                        <controls:SettingRow.SettingContent>
+                            <TextBox Text="{x:Bind ViewModel.CustomInputArguments, Mode=TwoWay}"
+                                     PlaceholderText="留空"
+                                     MinWidth="360"/>
+                        </controls:SettingRow.SettingContent>
+                    </controls:SettingRow>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 执行 ===== -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <TextBlock Text="命令" Style="{StaticResource CardTitleStyle}"/>
+
+                    <TextBox Text="{x:Bind ViewModel.CommandPreview, Mode=OneWay}"
+                             IsReadOnly="True"
+                             AcceptsReturn="True"
+                             TextWrapping="Wrap"
+                             FontFamily="Consolas"
+                             MaxHeight="120"
+                             Margin="0,0,0,12"/>
+
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button Style="{StaticResource AccentIconButtonStyle}"
+                                AutomationProperties.Name="执行探测"
+                                Command="{x:Bind ViewModel.RunCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon Glyph="&#xE768;" FontSize="16"/>
+                                <TextBlock Text="执行探测"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource IconButtonStyle}"
+                                AutomationProperties.Name="复制命令"
+                                Command="{x:Bind ViewModel.CopyCommandCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon Glyph="&#xE8C8;" FontSize="16"/>
+                                <TextBlock Text="复制命令"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource IconButtonStyle}"
+                                AutomationProperties.Name="恢复默认"
+                                Command="{x:Bind ViewModel.ResetCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon Glyph="&#xE777;" FontSize="16"/>
+                                <TextBlock Text="恢复默认"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- ===== 输出结果 ===== -->
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel>
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="输出结果" Style="{StaticResource CardTitleStyle}"/>
+                        <Button Grid.Column="1"
+                                Style="{StaticResource IconButtonStyle}"
+                                AutomationProperties.Name="复制输出"
+                                Command="{x:Bind ViewModel.CopyOutputCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon Glyph="&#xE8C8;" FontSize="16"/>
+                                <TextBlock Text="复制输出"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+
+                    <TextBox Text="{x:Bind ViewModel.RawOutput, Mode=OneWay}"
+                             IsReadOnly="True"
+                             AcceptsReturn="True"
+                             TextWrapping="NoWrap"
+                             FontFamily="Consolas"
+                             MinHeight="240"
+                             MaxHeight="600"
+                             PlaceholderText="执行后在此显示 ffprobe 的原始输出"/>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>
